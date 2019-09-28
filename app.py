@@ -373,19 +373,12 @@ def guncontrol():
     #                 nextFinal += [endpointNfuel[j]]
     #     if len(nextFinal) > len(final):
     #         final = nextFinal
-    # for i in range(len(endpointNfuel)):
-    #     perms = itertools.permutations(endpointNfuel,i)
-    #     for setlist in list(perms):
-    #         if sum(map(lambda x: x[1], setlist)) <= fuel:
-    #             final = setlist
-    endpointNfuel.sort(key= lambda x:x[1])
-    finalfuel = 0
-    for item in endpointNfuel:
-        if finalfuel + item[1] <=fuel:
-            final += [item]
-            finalfuel += item[1]
-        else:
-            break
+    for i in range(len(endpointNfuel)):
+        perms = itertools.permutations(endpointNfuel,i)
+        for setlist in list(perms):
+            if sum(map(lambda x: x[1], setlist)) == fuel:
+                final = setlist
+
     hits = []
     for item in final:
         hits.append(
