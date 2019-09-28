@@ -13,7 +13,7 @@ def aus():
     test = request.json
     queen = []
     obstacles = []
-    print(test)
+
     for y in range(len(test)):
         n = len(test)
 
@@ -23,6 +23,8 @@ def aus():
             if test[y][x] == 'X':
                 obstacles.append([y+1,x+1])
     
+    print(queen)
+    print(obstacles)
     steps_right = n- queen[1]
     steps_left = queen[1]-1
     
@@ -40,6 +42,16 @@ def aus():
     queen_diagonal_left_up = queen.copy()
     queen_diagonal_right_up = queen.copy()
 
+    right = True
+    left = True
+    up = True
+    down = True
+
+    diag_left_down = True
+    diag_right_down = True
+    diag_right_up = True
+    diag_left_up = True
+
     for obs in obstacles:
         queen_diagonal_right[0] += 1
         queen_diagonal_right[1] += 1
@@ -54,30 +66,37 @@ def aus():
         queen_diagonal_left_up[1] -= 1
 
         if obs[0] == queen[0]:
-            if(obs[1] > queen[1]):
+            if(obs[1] > queen[1] and right):
                 steps_right = obs[1] - queen[1]
-            else:
+                right = False
+            elif(left):
                 steps_left = queen[1] - obs[1]
+                left = False
         
         if obs[1] == queen[1]:
-            if obs[0] > queen[0]:
+            if obs[0] > queen[0] and down:
                 steps_down = obs[0] - queen[0] - 1
-            else:
+                down = False
+            elif(up):
                 steps_up = queen[0] - obs[0] - 1
+                up = False
 
-        if(queen_diagonal_right != obs and queen_diagonal_right[1] <= n):
+        if(queen_diagonal_right != obs and queen_diagonal_right[1] <= n and diag_right_down):
             diagonal_right += 1
+            diag_right_down = False
 
-        if(queen_diagonal_left != obs and queen_diagonal_left[1] > 0 ):
+        if(queen_diagonal_left != obs and queen_diagonal_left[1] > 0 and diag_left_down):
             diagonal_left += 1
+            diag_left_down = False
 
-        if(queen_diagonal_right_up != obs and queen_diagonal_right_up[0] > 0):
+        if(queen_diagonal_right_up != obs and queen_diagonal_right_up[0] > 0 and diag_right_up):
             diagonal_right_up += 1
+            diag_left_up = False
         
-        if(queen_diagonal_left_up != obs and queen_diagonal_left_up[0] > 0 and queen_diagonal_left_up[1] > 0):
+        if(queen_diagonal_left_up != obs and queen_diagonal_left_up[0] > 0 and queen_diagonal_left_up[1] > 0 and diag_left_up):
             diagonal_left_up += 1
+            diag_left_up = False
 
-        
     total = diagonal_left + diagonal_left_up + diagonal_right + diagonal_right_up + steps_down + steps_left + steps_right + steps_up
 
     
