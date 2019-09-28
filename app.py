@@ -108,6 +108,8 @@ def aus():
     test = request.json
     print(test)
 
+    return(test)
+
 
     
 if __name__ == '__main__':
