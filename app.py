@@ -2,6 +2,7 @@ import os
 from flask import Flask, jsonify, request
 import random
 import math
+from svgpathtools import svg2paths
 
 app = Flask(__name__)
 @app.after_request
@@ -479,6 +480,20 @@ def typing():
     result = {"cost":counter,"steps":steps}
     print(result)
     return jsonify(result)
+
+@app.route('/bucket-fill', methods = ["POST"])
+def bucketfill():
+    test = request.json
+    paths, attributes = svg2paths(test)
+    total_area = 0
+    for i in range(len(attributes)):
+        temp_list = attributes[i]["points"].split()
+        att_list = []
+        for n in range(len(temp_list)):
+            att_list.append(temp_list[n].split(","))
+        if len(att_list) == 4:
+            total_area += (abs(int(att_list[0][0]) - int(att_list[2][0])) - 1) * abs(int(att_list[0][1]) - int(att_list[2][1]))   
+    return jsonify(total_area)
 
 
 if __name__ == '__main__':
