@@ -113,7 +113,7 @@ def test():
 
 
 @app.route('/maximise_1c', methods = ["POST"])
-def test():
+def nic():
     test = request.json
     startingCapital = test["startingCapital"]
     stocks = test["stocks"]
