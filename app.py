@@ -544,5 +544,11 @@ def prismo():
     output["moves"] = moves
     return jsonify(output)
 
+@app.route('/defuse', methods = ["POST"])
+def defuse():
+    input = request.json
+    my_list = [0]
+    return jsonify(my_list)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
