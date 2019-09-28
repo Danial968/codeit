@@ -23,7 +23,7 @@ def last_digit(n1, n2):
 
 def player(n, p):
 
-    return()
+
 
     print(last_digit(n,p))
     print(len_digit(n,p))
@@ -45,4 +45,4 @@ def player(n, p):
     # digits = (int)(math.log10(number))
 
     # n = (int)(n/pow(10, number))
-player(5,2)
+player(0,1)
