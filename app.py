@@ -186,10 +186,12 @@ def depend():
 @app.route('/exponent', methods = ["POST"])
 def exponential():
     test = request.json
-    number = test["n"]**test["p"] 
-    num = str(number)
+    number = test['n']**test['p']
+    digits = (int)(math.log10(number))
+
+    n = (int)(n/pow(10, number))
     my_dict = {}
-    my_dict['result'] = [num[0], len(num), num[-1]]
+    my_dict['result'] = [n, (int)(math.log10(number)) + 1, number%10]
 
     return jsonify(my_dict)
 
