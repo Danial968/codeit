@@ -473,14 +473,14 @@ def composition():
     return jsonify(result)
 
 
-# @app.route('/readyplayerone', methods = ["POST"])
-# def player():
-#     my_list = {}
-#     # for i in range(10):
-#     #     my_list.append(random.randint(1,101))
+@app.route('/readyplayerone', methods = ["POST"])
+def player():
+    my_list = {}
+    # for i in range(10):
+    #     my_list.append(random.randint(1,101))
 
-#     my_list['res'] = -1
-#     return jsonify(my_list)
+    my_list['res'] = -1
+    return jsonify(my_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
