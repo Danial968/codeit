@@ -18,7 +18,7 @@ def square():
     number = int(req['input']) ** 2
     return f"{number}"
 
-@app.route('/chessgame', methods = ["POST"])
+@app.route('chessgame', methods = ["POST"])
 def aus():
     test = request.json
     queen = []
