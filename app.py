@@ -2,15 +2,6 @@ import os
 from flask import Flask, jsonify, request
 import random
 import math
-import nltk
-nltk.download('stopwords')
-nltk.download('movie_reviews')
-nltk.download('punkt')
-import nltk.classify.util
-from nltk.classify import NaiveBayesClassifier
-from nltk.corpus import movie_reviews
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
 
 app = Flask(__name__)
 @app.after_request
@@ -114,49 +105,49 @@ def aus():
 
     return jsonify(total)
 
-@app.route('/sentiment-analysis', methods = ["POST"])
-def sentimentanalysis():
+# @app.route('/sentiment-analysis', methods = ["POST"])
+# def sentimentanalysis():
 
-    def create_word_features(words):
-        useful_words = [word for word in words if word not in stopwords.words("english")]
-        my_dict = dict([(word, True) for word in useful_words])
+#     def create_word_features(words):
+#         useful_words = [word for word in words if word not in stopwords.words("english")]
+#         my_dict = dict([(word, True) for word in useful_words])
 
-        return my_dict
+#         return my_dict
     
-    def sentiment(sentences):
-        output = []
-        response = []
+#     def sentiment(sentences):
+#         output = []
+#         response = []
 
-        neg_reviews = []
-        for fileid in movie_reviews.fileids('neg'):
-            words = movie_reviews.words(fileid)
-            neg_reviews.append((create_word_features(words), "negative"))
+#         neg_reviews = []
+#         for fileid in movie_reviews.fileids('neg'):
+#             words = movie_reviews.words(fileid)
+#             neg_reviews.append((create_word_features(words), "negative"))
 
-        pos_reviews = []
-        for fileid in movie_reviews.fileids('pos'):
-            words = movie_reviews.words(fileid)
-            pos_reviews.append((create_word_features(words), "positive"))
+#         pos_reviews = []
+#         for fileid in movie_reviews.fileids('pos'):
+#             words = movie_reviews.words(fileid)
+#             pos_reviews.append((create_word_features(words), "positive"))
         
-        train_set = neg_reviews[:750] + pos_reviews[:750]
-        test_set =  neg_reviews[750:] + pos_reviews[750:]
+#         train_set = neg_reviews[:750] + pos_reviews[:750]
+#         test_set =  neg_reviews[750:] + pos_reviews[750:]
 
-        classifier = NaiveBayesClassifier.train(train_set)
+#         classifier = NaiveBayesClassifier.train(train_set)
 
-        accuracy = nltk.classify.util.accuracy(classifier, test_set)
+#         accuracy = nltk.classify.util.accuracy(classifier, test_set)
 
-        for sentence in sentences:
-            words = word_tokenize(sentence)
-            words = create_word_features(words)
-            classifier.classify(words)
-            if classifier.classify(words) == "positive":
-                response.append("positive")
-            else:
-                response.append("negative")
-        output["response"] = response
-        return output
-    test = request.json
-    sentences = test["reviews"]
-    return jsonify(sentiment(sentences))
+#         for sentence in sentences:
+#             words = word_tokenize(sentence)
+#             words = create_word_features(words)
+#             classifier.classify(words)
+#             if classifier.classify(words) == "positive":
+#                 response.append("positive")
+#             else:
+#                 response.append("negative")
+#         output["response"] = response
+#         return output
+#     test = request.json
+#     sentences = test["reviews"]
+#     return jsonify(sentiment(sentences))
 
 @app.route('/lottery', methods = ["GET"])
 def lottery():
