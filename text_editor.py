@@ -19,12 +19,13 @@ def contest(input):
 
     actions = ['INPUT']
     word_list = [input[0]]
-    
+    steps = [{'type':'INPUT', 'value':input[0]}]
+
     while(len(word_list) != len(input)):
         to_change = None
         if actions[-1] == 'INPUT':
             actions.append('COPY')
-            
+            steps.append({'type':'COPY', 'value':my_str})
 
         elif actions[-1] == "COPY":
             counter += 1
@@ -40,11 +41,14 @@ def contest(input):
                         to_change = word
                         change = comparator[key]
             counter += change
+            steps.append({'type':'TRANSFORM', 'value':to_change})
             word_list.append(to_change)
             actions.append('COPY')
-            
+            steps.append({'type':'COPY', 'value':to_change})
+        
+    result = {"cost":counter,"steps":steps}
 
-    print(counter)
+    print(result)
 
 
 contest(['laziest','busiest','easiest'])
