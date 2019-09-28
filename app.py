@@ -21,7 +21,7 @@ def aus():
     
     # TOP
     top = 0
-    for i in range(queen[0]-1,0,-1):
+    for i in range(queen[0]-2,-1,-1):
         if test[i][queen[1]-1] != "X":
             top += 1
         else:
@@ -37,7 +37,7 @@ def aus():
 
     # LEFT
     left = 0
-    for i in range(queen[1]-1,0,-1):
+    for i in range(queen[1]-2,-1,-1):
         if test[queen[0]-1][i] != "X":
             left += 1
         else:
@@ -53,8 +53,8 @@ def aus():
 
     # TOPLEFT
     topleft = 0
-    temp_queen_row = queen[0]
-    temp_queen_col = queen[1]
+    temp_queen_row = queen[0]-1
+    temp_queen_col = queen[1]-1
     for i in range(min(queen[0]-1,queen[1]-1),0,-1):
         temp_queen_row -= 1
         temp_queen_col -= 1
@@ -65,11 +65,11 @@ def aus():
     
     # TOPRIGHT
     topright = 0
-    temp_queen_row = queen[0]
-    temp_queen_col = queen[1]
+    temp_queen_row = queen[0]-1
+    temp_queen_col = queen[1]-1
     for i in range(min(queen[0]-1,n-queen[1]),0,-1):
         temp_queen_row -= 1
-        temp_queen_col -= 1
+        temp_queen_col += 1
         if test[temp_queen_row][temp_queen_col] != "X":
             topright += 1
         else:
@@ -77,10 +77,10 @@ def aus():
 
     # DOWNLEFT
     downleft = 0
-    temp_queen_row = queen[0]
-    temp_queen_col = queen[1]
+    temp_queen_row = queen[0]-1
+    temp_queen_col = queen[1]-1
     for i in range(min(n-queen[0],queen[1]-1),0,-1):
-        temp_queen_row -= 1
+        temp_queen_row += 1
         temp_queen_col -= 1
         if test[temp_queen_row][temp_queen_col] != "X":
             downleft += 1
@@ -89,19 +89,17 @@ def aus():
 
     # DOWNRIGHT
     downright = 0
-    temp_queen_row = queen[0]
-    temp_queen_col = queen[1]
+    temp_queen_row = queen[0]-1
+    temp_queen_col = queen[1]-1
     for i in range(min(n-queen[0],n-queen[1]),0,-1):
-        temp_queen_row -= 1
-        temp_queen_col -= 1
+        temp_queen_row += 1
+        temp_queen_col += 1
         if test[temp_queen_row][temp_queen_col] != "X":
             downleft += 1
         else:
             break
 
     total = top+topleft+topright+left+right+down+downleft+downright
-
-
 
     return jsonify(total)
 
