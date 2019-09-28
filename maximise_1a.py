@@ -11,7 +11,7 @@ def maximise_1a(test):
 
     for stock in itertools.permutations(stocks):
         current_profit = 0
-        for i in range(len(stock)):
+        # for i in range(len(stock)):
 
 
     print(all_stocks)
