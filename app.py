@@ -393,28 +393,6 @@ def guncontrol():
     output = {"hits": hits}
     return jsonify(output)
 
-@app.route('/composition', methods = ["POST"])
-def composition():
-    input = request.json
-    print(input)
-    compo = input['composition']
-    ban = input['patterns']
-
-    long_ban = []
-    count = 0
-    for ch in ban:
-        long_ban.append(ch)
-        long_ban.append(ch[1] + ch[0])
-
-    for banned in long_ban:
-
-        if banned in compo:
-            count+=1
-            compo = compo.replace(banned,'')
-    
-    result = {"testId":input['setId'],"result":count}
-    return jsonify(result)
-
 @app.route('/typing-contest', methods = ["POST"])
 def typing_contest():
     input = request.json
@@ -467,13 +445,33 @@ def typing_contest():
             if(len(word_list) != len(input)):
                 actions.append('COPY')
                 steps.append({'type':'COPY', 'value':to_change})
-        
 
-        
-        
     result = {"cost":counter,"steps":steps}
-    print(result)
     return jsonify(result)
+
+
+@app.route('/composition', methods = ["POST"])
+def composition():
+    input = request.json
+    print(input)
+    compo = input['composition']
+    ban = input['patterns']
+
+    long_ban = []
+    count = 0
+    for ch in ban:
+        long_ban.append(ch)
+        long_ban.append(ch[1] + ch[0])
+
+    for banned in long_ban:
+
+        if banned in compo:
+            count+=1
+            compo = compo.replace(banned,'')
+    
+    result = {"testId":input['setId'],"result":count}
+    return jsonify(result)
+
 
 
 if __name__ == '__main__':
