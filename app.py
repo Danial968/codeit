@@ -107,9 +107,9 @@ def aus():
 def aus():
     print("Hello world")
     test = request.json
-    print("Hello world")
-    print(test)
-    return "0"
+    # print("Hello world")
+    # print(test)
+    return test
     # return(test)
 
 
