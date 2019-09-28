@@ -26,9 +26,9 @@ def aus():
     queen_col = queen[1]
     
     top = queen_row-1
-    down = abs(n-queen_row)-1
+    down = abs(n-queen_row)
     left = queen_col-1
-    right = abs(n-queen_col)-1
+    right = abs(n-queen_col)
     ttop_right = min(top, right)
     ttop_left = min(top, left)
     tdown_right = min(down, right)
@@ -41,7 +41,7 @@ def aus():
         # Left
         if(obstacles[i][0] == queen_row):
             if(obstacles[i][1] < queen_col):
-                temp = abs(obstacles[1]-queen_col)-1
+                temp = abs(obstacles[i][1]-queen_col)-1
                 if(left > temp):
                     left = temp
             # right
@@ -51,8 +51,8 @@ def aus():
                     right = temp
         # Top
         elif(obstacles[i][1] == queen_col):
-            if(obstacles[i][0] > queen_row):
-                temp = abs(obstacles[1]-queen_col)-1
+            if(obstacles[i][0] < queen_row):
+                temp = abs(obstacles[i][1]-queen_col)-1
                 if(top > temp):
                     top = temp
             # down
@@ -96,6 +96,7 @@ def aus():
             temp = abs(obstacles[i][0]-queen_row)-1
             if(top_left > temp):
                 top_left = temp
+
 
     return jsonify(top+top_left+top_right+right+left+down+down_left+down_right)
 
