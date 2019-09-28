@@ -376,7 +376,7 @@ def guncontrol():
     for item in final:
         hits.append(
             {
-                "cells": { 
+                "cell": { 
                     "x": (item[0][1] + 1),
                     "y": (item[0][0] + 1)
                 },
