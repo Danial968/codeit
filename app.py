@@ -24,7 +24,7 @@ def aus():
     input.sort()
     return jsonify(input)
 
-@app.route('/reverse-lottery', methods = ["POST"])
+@app.route('/lottery', methods = ["POST"])
 def aus():
     input = request.json
     my_list = []
