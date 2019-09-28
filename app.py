@@ -183,5 +183,15 @@ def depend():
     
     return  jsonify(final)
 
+@app.route('/exponent', methods = ["POST"])
+def exponential():
+    test = request.json
+    number = test[n]**test[p]
+    num = str(number)
+    my_dict = {}
+    my_dict['result'] = [num[0], len(num), num[-1]]
+
+    return jsonify(my_dict)
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
