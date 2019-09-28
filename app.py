@@ -120,13 +120,13 @@ def aus():
 @app.route('/sentiment-analysis', methods = ["POST"])
 def sentimentanalysis():
     test = request.json
+    print(test)
     sentences = test["reviews"]
     response = []
     output = {}
 
     for sentence in sentences:
         sid = SentimentIntensityAnalyzer()
-        print(sid.polarity_scores(sentence))
         if sid.polarity_scores(sentence)["neg"] < sid.polarity_scores(sentence)["pos"]:
             response.append("positive")
         else:
