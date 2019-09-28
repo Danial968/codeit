@@ -5,7 +5,7 @@ def maximise_1a(test):
     startingCapital = test["startingCapital"]
     stocks = test["stocks"]
     output = {}
-    best_
+    best_ko = []
     profit = 0
     portfolio = []
 
