@@ -1,6 +1,6 @@
 import os
 from flask import Flask, jsonify, request
-import random
+
 
 app = Flask(__name__)
 @app.after_request
@@ -24,14 +24,14 @@ def aus():
                 queen = [y+1, x+1]
             if test[y][x] == 'X':
                 obstacles.append([y+1,x+1])
-    
+
     steps_right = n- queen[1]
     steps_left = queen[1]-1
-    
+
     steps_up = queen[0] - 1
     steps_down = n- queen[0]
     queen_diagonal_right = queen.copy()
-    diagonal_right = 0 
+    diagonal_right = 0
     diagonal_left = 0
 
     diagonal_right_up = 0
@@ -72,7 +72,7 @@ def aus():
             elif(left):
                 steps_left = queen[1] - obs[1]
                 left = False
-        
+
         if obs[1] == queen[1]:
             if obs[0] > queen[0] and down:
                 steps_down = obs[0] - queen[0] - 1
@@ -92,7 +92,7 @@ def aus():
         if(queen_diagonal_right_up != obs and queen_diagonal_right_up[0] > 0 and diag_right_up):
             diagonal_right_up += 1
             diag_left_up = False
-        
+
         if(queen_diagonal_left_up != obs and queen_diagonal_left_up[0] > 0 and queen_diagonal_left_up[1] > 0 and diag_left_up):
             diagonal_left_up += 1
             diag_left_up = False
@@ -103,19 +103,9 @@ def aus():
     return jsonify(total)
 
 
-@app.route('/generateSequence', methods = ["POST"])
-def aus():
-    print("Hello world")
-    test = request.json
-    print("Hello world")
-    print(test)
-    return "0"
-    # return(test)
 
 
-    
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
-
-
-
