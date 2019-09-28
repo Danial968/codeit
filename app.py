@@ -14,6 +14,8 @@ def aus():
     queen = []
     obstacles = []
 
+    print(test)
+
     for y in range(len(test)):
         n = len(test)
 
@@ -23,8 +25,6 @@ def aus():
             if test[y][x] == 'X':
                 obstacles.append([y+1,x+1])
     
-    print(queen)
-    print(obstacles)
     steps_right = n- queen[1]
     steps_left = queen[1]-1
     
