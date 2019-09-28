@@ -19,14 +19,21 @@ def create_word_features(words):
     my_dict = dict([(word, True) for word in useful_words])
     return my_dict
 
+def write_to_file(filename,result):
+    with open(filename,'w+') as f:
+        for line in result:
+            f.write(line + '\n')
+
 def sentiment(sentences):
 
     response = []
 
     neg_reviews = []
+
     for fileid in movie_reviews.fileids('neg'):
         words = movie_reviews.words(fileid)
         neg_reviews.append((create_word_features(words), "negative"))
+        write_to_file('negative',create_word_features(words))
 
     pos_reviews = []
     for fileid in movie_reviews.fileids('pos'):
