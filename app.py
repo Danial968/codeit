@@ -121,7 +121,7 @@ def test():
     sorted_value_stock = []
     output = {}
     profit = 0
-    portfolio = []
+    portfolio = [] 
 
     for i in range(len(stocks)):
         stocks_value[stocks[i][0]] = stocks[i][1]/stocks[i][2]
