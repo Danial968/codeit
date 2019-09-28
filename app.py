@@ -112,5 +112,36 @@ def test():
     return jsonify(my_list)
 
 
+@app.route('/maximise_1c', methods = ["POST"])
+def test():
+    test = request.json
+    startingCapital = test["startingCapital"]
+    stocks = test["stocks"]
+    stocks_value = {}
+    sorted_value_stock = []
+    output = {}
+    profit = 0
+    portfolio = []
+
+    for i in range(len(stocks)):
+        stocks_value[stocks[i][0]] = stocks[i][1]/stocks[i][2]
+        sorted_value_stock.append([stocks[i][0], stocks[i][1], stocks[i][2], stocks[i][1]/stocks[i][2]])
+    sorted_value_stock.sort(key=lambda x: x[3], reverse=True)
+    
+    count = 0
+    while(startingCapital != 0):
+        if startingCapital >= sorted_value_stock[count][2]:
+            startingCapital -= sorted_value_stock[count][2]
+            profit += sorted_value_stock[count][1]
+            portfolio.append(sorted_value_stock[count][0])
+        else:
+            if(count == len(sorted_value_stock)-1):
+                break
+            count += 1
+    output["profit"] = profit
+    output["portfolio"] = portfolio
+
+    return jsonify(output)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
