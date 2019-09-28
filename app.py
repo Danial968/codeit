@@ -108,7 +108,7 @@ def chessgame():
 def sentimentanalysis():
     test = request.json
     num = len(test)
-    my_list = ['positive','negative']
+    my_list = ['positive',]
     response = []
     my_dict = {}
     for i in range(num):
