@@ -187,12 +187,31 @@ def depend():
 @app.route('/exponent', methods = ["POST"])
 def exponential():
     test = request.json
-    number = test['n']**test['p']
-    digits = (int)(math.log10(number))
+    n = test["n"]
+    p = test["p"]
 
-    n = (int)(n/pow(10, number))
+    def first_digit(n, p):
+        value = p*(math.log10(n))
+        frac, whole = math.modf(value)
+        return int(str(10**frac)[:1])
+
+    def len_digit(n, p):
+        return int(p*(math.log10(n))+1)
+
+    def last_digit(n1, n2):
+        if n2 == 0:
+            return 1
+
+        cycle = [n1 % 10]
+        while True:
+            nxt = (cycle[-1] * n1) % 10
+            if nxt == cycle[0]:
+                break
+            cycle.append(nxt)
+        return cycle[(n2 - 1) % len(cycle)] 
+
     my_dict = {}
-    my_dict['result'] = [n, (int)(math.log10(number)) + 1, number%10]
+    my_dict['result'] = [first_digit(n, p), len_digit(n, p), last_digit(n, p)]
 
     return jsonify(my_dict)
 
