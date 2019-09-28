@@ -453,6 +453,7 @@ def typing_contest():
 @app.route('/bucket-fill', methods = ["POST"])
 def bucketfill():
     test = request.json
+    print(test)
     paths, attributes = svg2paths(test)
     total_area = 0
     for i in range(len(attributes)):
