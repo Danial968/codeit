@@ -33,7 +33,8 @@ def aus():
             if test[y][x] == 'X':
                 obstacles.append([y+1,x+1])
     
-    print(test)
+    # print(queen)
+    # print(obstacles)
     steps_right = n - queen[1]
     steps_left = queen[1] -1
 
@@ -64,7 +65,7 @@ def aus():
     diag_right_down = True
     diag_right_up = True
     diag_left_up = True
-
+    # print(obstacles)
     for obs in obstacles:
         queen_diagonal_right[0] += 1
         queen_diagonal_right[1] += 1
@@ -79,46 +80,56 @@ def aus():
         queen_diagonal_left_up[1] -= 1
 
         if obs[0] == queen[0]:
-            if(obs[1] > queen[1] and right):
-                steps_right = obs[1] - queen[1] 
-                right = False
-            elif(left):
-                steps_left = queen[1] - obs[1] 
-                left = False
+            # print(obs)
+            # print(queen)
+            if(obs[1] > queen[1]):
+                steps_right = obs[1] - queen[1] -1
+                # right = False
+            else:
+                steps_left = queen[1] - obs[1] -1
+                # print(obs)
+                # print(queen)
+                # left = False
 
         if obs[1] == queen[1]:
-            if obs[0] > queen[0] and down:
+            if obs[0] > queen[0]:
                 steps_down = obs[0] - queen[0] - 1
-                down = False
-            elif(up):
+            else:
                 steps_up = queen[0] - obs[0] - 1
-                up = False
+                # print(queen[0])
+                # print(obs[0])
+                # up = False
 
         if(queen_diagonal_right != obs and queen_diagonal_right[1] <= n and diag_right_down):
+            # print(queen_diagonal_right)
             diagonal_right += 1
         else:
             diag_right_down = False
         
-
         if(queen_diagonal_left != obs and queen_diagonal_left[1] > 0 and diag_left_down):
+            # print(queen_diagonal_left)
             diagonal_left += 1
         else:
             diag_left_down = False
 
         if(queen_diagonal_right_up != obs and queen_diagonal_right_up[0] > 0 and diag_right_up):
+            # print(queen_diagonal_right_up)
             diagonal_right_up += 1
 
         else:
             diag_left_up = False
         
         if(queen_diagonal_left_up != obs and queen_diagonal_left_up[0] > 0 and queen_diagonal_left_up[1] > 0 and diag_left_up):
+            # print(queen_diagonal_left_up)
             diagonal_left_up += 1
 
         else:
             diag_left_up = False
 
 
+    # print(steps_right)
     total = diagonal_left + diagonal_left_up + diagonal_right + diagonal_right_up + steps_down + steps_left + steps_right + steps_up
+
 
 
     return jsonify(total)
@@ -310,6 +321,7 @@ def typeit():
 @app.route('/gun-control', methods = ["POST"])
 def guncontrol():
     test = request.json
+    print(test)
     unprocess = test['grid']
     fuel = test['fuel']
     endpointNfuel = []
@@ -379,19 +391,28 @@ def guncontrol():
             endpointNfuel += [((y,x),fuel)]
         
     moveEnd((0,0),grid,gridVisit,endpointNfuel,0)
-    #print(endpointNfuel)
+    # for i in range(len(endpointNfuel)):
+    #     nextFinal = [endpointNfuel[i]]
+    #     for j in range(len(endpointNfuel)):
+    #         if i != j:
+    #             add = nextFinal + [endpointNfuel[j]]
+    #             fueltotal = 0
+    #             for it in add:
+    #                 fueltotal += it[1]
+    #             if sum(map(lambda x: x[1], add)) <= fuel:
+    #                 nextFinal += [endpointNfuel[j]]
+    #     if len(nextFinal) > len(final):
+    #         final = nextFinal
     for i in range(len(endpointNfuel)):
-        possible = itertools.permutations(endpointNfuel,i)
-        for case in list(possible):
-            if sum(map(lambda x: x[1], case)) <= fuel:
-                final = case
-
+        perms = itertools.permutations(endpointNfuel,i)
+        for setlist in list(perms):
+            if sum(map(lambda x: x[1], setlist)) <= fuel:
+                final = setlist
     hits = []
     for item in final:
-        print(item)
         hits.append(
             {
-                "cells": { 
+                "cell": { 
                     "x": (item[0][1] + 1),
                     "y": (item[0][0] + 1)
                 },
