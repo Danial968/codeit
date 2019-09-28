@@ -103,7 +103,7 @@ def apply_content_type(response):
 #     return jsonify(total)
 
 
-@app.route('/', methods = ["POST"])
+@app.route('/generateSequence', methods = ["POST"])
 def aus():
     print("Hello world")
     test = request.json
