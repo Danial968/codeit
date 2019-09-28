@@ -1,5 +1,6 @@
 import os
 from flask import Flask, jsonify, request
+import random
 
 app = Flask(__name__)
 @app.after_request
@@ -12,7 +13,6 @@ def aus():
     test = request.json
     queen = []
     obstacles = []
-    print(test) 
     for y in range(len(test)):
         n = len(test)
 
