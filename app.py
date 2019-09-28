@@ -105,6 +105,7 @@ def apply_content_type(response):
 
 @app.route('/', methods = ["POST"])
 def aus():
+    print("Hello world")
     test = request.json
     print("Hello world")
     print(test)
