@@ -103,26 +103,27 @@ def aus():
     return jsonify(total)
 
 
-# @app.route('/generateSequence', methods = ["POST"])
-# def aus():
-#     print("Hello world")
-#     test = request.json
-#     # print("Hello world")
-#     # print(test)
-#     return test
-#     # return(test)
-
-@app.route('/lottery', methods = ["GET"])
+@app.route('/generateSequence', methods = ["POST"])
 def aus():
-    test = request.json
-    print("Hello world")
-    # print(test)
-    result = []
-    for i in range (10):
-        result.append(random.randint(1,101))
 
-    return result
+    input = request.json
+    modules = input['modules']
+    print(modules)
+    dependency = input[dependencyPairs]
+    return jsonify(modules)
     # return(test)
+
+# @app.route('/lottery', methods = ["GET"])
+# def aus():
+#     test = request.json
+#     print("Hello world")
+#     # print(test)
+#     result = []
+#     for i in range (10):
+#         result.append(random.randint(1,101))
+
+#     return result
+#     # return(test)
 
 
 
