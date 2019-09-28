@@ -103,18 +103,18 @@ def aus():
     return jsonify(total)
 
 
-# @app.route('/generateSequence', methods = ["POST"])
-# def app(first, second):
+@app.route('/generateSequence', methods = ["POST"])
+def app(first, second):
 
-#     input = request.json
-#     modules = input['modules']
-#     print(modules)  
-#     dependency = input[dependencyPairs]
-#     # return jsonify(modules)
-#     # return(test)
-#     print(first)
-#     print(second)
-#     return '0'
+    input = request.json
+    modules = input['modules']
+    print(modules)  
+    dependency = input[dependencyPairs]
+    # return jsonify(modules)
+    # return(test)
+    print(first)
+    print(second)
+    return '0'
 
 
 
