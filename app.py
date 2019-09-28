@@ -187,7 +187,7 @@ def depend():
 @app.route('/exponent', methods = ["POST"])
 def exponential():
     test = request.json
-    number = test['n']**test['p']
+    number = math.pow(test['n'], test['p'])
     digits = (int)(math.log10(number))
 
     n = (int)(n/pow(10, number))
