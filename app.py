@@ -494,10 +494,14 @@ def composition():
 @app.route('/readyplayerone', methods = ["POST"])
 def player():
     my_list = {}
-    # for i in range(10):
-    #     my_list.append(random.randint(1,101))
 
     my_list['res'] = -1
+    return jsonify(my_list)
+
+@app.route('/defuse', methods = ["POST"])
+def defuse():
+    input = request.json
+    my_list = [0]
     return jsonify(my_list)
 
 if __name__ == '__main__':
