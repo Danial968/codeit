@@ -1,6 +1,6 @@
 import os
 from flask import Flask, jsonify, request
-
+import random
 
 app = Flask(__name__)
 @app.after_request
@@ -13,7 +13,6 @@ def aus():
     test = request.json
     queen = []
     obstacles = []
-
     for y in range(len(test)):
         n = len(test)
 
@@ -104,6 +103,13 @@ def aus():
 
 
 
+@app.route('/lottery', methods = ["GET"])
+def test():
+    my_list = []
+    for i in range(10):
+        my_list.append(random.randint(1,101))
+
+    return jsonify(my_list)
 
 
 if __name__ == '__main__':
