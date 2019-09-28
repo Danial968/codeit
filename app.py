@@ -474,7 +474,7 @@ def composition():
 
 
 @app.route('/readyplayerone', methods = ["POST"])
-def lottery():
+def player():
     my_list = {}
     # for i in range(10):
     #     my_list.append(random.randint(1,101))
