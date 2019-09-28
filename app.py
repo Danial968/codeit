@@ -22,113 +22,93 @@ def apply_content_type(response):
 def aus():
     test = request.json
     queen = []
-    obstacles = []
-
+    n = len(test)
     for y in range(len(test)):
-        n = len(test)
-
         for x in range(len(test[y])):
             if test[y][x] == 'K':
                 queen = [y+1, x+1]
-            if test[y][x] == 'X':
-                obstacles.append([y+1,x+1])
     
-    # print(queen)
-    # print(obstacles)
-    steps_right = n - queen[1]
-    steps_left = queen[1] -1
-
-
-
-    steps_up = queen[0] - 1
-    steps_down = n - queen[0]
-
-
-    queen_diagonal_right = queen.copy()
-    diagonal_right = 0 
-    diagonal_left = 0
-
-    diagonal_right_up = 0
-    diagonal_left_up = 0
-
-    queen_diagonal_left = queen.copy()
-
-    queen_diagonal_left_up = queen.copy()
-    queen_diagonal_right_up = queen.copy()
-
-    right = True
-    left = True
-    up = True
-    down = True
-
-    diag_left_down = True
-    diag_right_down = True
-    diag_right_up = True
-    diag_left_up = True
-    # print(obstacles)
-    for obs in obstacles:
-        queen_diagonal_right[0] += 1
-        queen_diagonal_right[1] += 1
-
-        queen_diagonal_left[0] += 1
-        queen_diagonal_left[1] -= 1
-
-        queen_diagonal_right_up[0] -= 1
-        queen_diagonal_right_up[1] += 1
-
-        queen_diagonal_left_up[0] -= 1
-        queen_diagonal_left_up[1] -= 1
-
-        if obs[0] == queen[0]:
-            # print(obs)
-            # print(queen)
-            if(obs[1] > queen[1]):
-                steps_right = obs[1] - queen[1] -1
-                # right = False
-            else:
-                steps_left = queen[1] - obs[1] -1
-                # print(obs)
-                # print(queen)
-                # left = False
-
-        if obs[1] == queen[1]:
-            if obs[0] > queen[0]:
-                steps_down = obs[0] - queen[0] - 1
-            else:
-                steps_up = queen[0] - obs[0] - 1
-                # print(queen[0])
-                # print(obs[0])
-                # up = False
-
-        if(queen_diagonal_right != obs and queen_diagonal_right[1] <= n and diag_right_down):
-            # print(queen_diagonal_right)
-            diagonal_right += 1
+    # TOP
+    top = 0
+    for i in range(queen[0]-1,0,-1):
+        if test[i][queen[1]-1] != "X":
+            top += 1
         else:
-            diag_right_down = False
-        
-        if(queen_diagonal_left != obs and queen_diagonal_left[1] > 0 and diag_left_down):
-            # print(queen_diagonal_left)
-            diagonal_left += 1
+            break
+    
+    # DOWN
+    down = 0
+    for i in range(queen[0], n):
+        if test[i][queen[1]-1] != "X":
+            down += 1
         else:
-            diag_left_down = False
+            break
 
-        if(queen_diagonal_right_up != obs and queen_diagonal_right_up[0] > 0 and diag_right_up):
-            # print(queen_diagonal_right_up)
-            diagonal_right_up += 1
-
+    # LEFT
+    left = 0
+    for i in range(queen[1]-1,0,-1):
+        if test[queen[0]-1][i] != "X":
+            left += 1
         else:
-            diag_left_up = False
-        
-        if(queen_diagonal_left_up != obs and queen_diagonal_left_up[0] > 0 and queen_diagonal_left_up[1] > 0 and diag_left_up):
-            # print(queen_diagonal_left_up)
-            diagonal_left_up += 1
-
+            break
+    
+    # RIGHT
+    right = 0
+    for i in range(queen[1], n):
+        if test[queen[0]-1][i] != "X":
+            right += 1
         else:
-            diag_left_up = False
+            break
 
+    # TOPLEFT
+    topleft = 0
+    temp_queen_row = queen[0]
+    temp_queen_col = queen[1]
+    for i in range(min(queen[0]-1,queen[1]-1),0,-1):
+        temp_queen_row -= 1
+        temp_queen_col -= 1
+        if test[temp_queen_row][temp_queen_col] != "X":
+            topleft += 1
+        else:
+            break
+    
+    # TOPRIGHT
+    topright = 0
+    temp_queen_row = queen[0]
+    temp_queen_col = queen[1]
+    for i in range(min(queen[0]-1,n-queen[1]),0,-1):
+        temp_queen_row -= 1
+        temp_queen_col -= 1
+        if test[temp_queen_row][temp_queen_col] != "X":
+            topright += 1
+        else:
+            break
 
-    # print(steps_right)
-    total = diagonal_left + diagonal_left_up + diagonal_right + diagonal_right_up + steps_down + steps_left + steps_right + steps_up
+    # DOWNLEFT
+    downleft = 0
+    temp_queen_row = queen[0]
+    temp_queen_col = queen[1]
+    for i in range(min(n-queen[0],queen[1]-1),0,-1):
+        temp_queen_row -= 1
+        temp_queen_col -= 1
+        if test[temp_queen_row][temp_queen_col] != "X":
+            downleft += 1
+        else:
+            break
+
+    # DOWNRIGHT
+    downright = 0
+    temp_queen_row = queen[0]
+    temp_queen_col = queen[1]
+    for i in range(min(n-queen[0],n-queen[1]),0,-1):
+        temp_queen_row -= 1
+        temp_queen_col -= 1
+        if test[temp_queen_row][temp_queen_col] != "X":
+            downleft += 1
+        else:
+            break
+
+    total = top+topleft+topright+left+right+down+downleft+downright
 
 
 
