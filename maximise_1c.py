@@ -1,14 +1,12 @@
 def maximise_1c(json):
     startingCapital = json["startingCapital"]
     stocks = json["stocks"]
-    stocks_value = {}
     sorted_value_stock = []
     output = {}
     profit = 0
     portfolio = []
 
     for i in range(len(stocks)):
-        stocks_value[stocks[i][0]] = stocks[i][1]/stocks[i][2]
         sorted_value_stock.append([stocks[i][0], stocks[i][1], stocks[i][2], stocks[i][1]/stocks[i][2]])
     sorted_value_stock.sort(key=lambda x: x[3], reverse=True)
     

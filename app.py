@@ -187,14 +187,53 @@ def depend():
 @app.route('/exponent', methods = ["POST"])
 def exponential():
     test = request.json
-    number = math.pow(test['n'], test['p'])
-    digits = (int)(math.log10(number))
+    n = test["n"]
+    p = test["p"]
 
-    n = (int)(n/pow(10, number))
+    def first_digit(n, p):
+        value = p*(math.log10(n))
+        frac, whole = math.modf(value)
+        return int(str(10**frac)[:1])
+
+    def len_digit(n, p):
+        return int(p*(math.log10(n))+1)
+
+    def last_digit(n1, n2):
+        if n2 == 0:
+            return 1
+
+        cycle = [n1 % 10]
+        while True:
+            nxt = (cycle[-1] * n1) % 10
+            if nxt == cycle[0]:
+                break
+            cycle.append(nxt)
+        return cycle[(n2 - 1) % len(cycle)] 
+
     my_dict = {}
-    my_dict['result'] = [n, (int)(math.log10(number)) + 1, number%10]
+    my_dict['result'] = [first_digit(n, p), len_digit(n,p), last_digit(n, p)]
 
     return jsonify(my_dict)
+
+@app.route('/typing-contest', methods = ["POST"])
+def typeit():
+    test = request.json
+    cost = 0
+    steps= []
+    steps.append({"type":"INPUT","value":test[0]})
+    cost+= len(test[0])
+
+    for index in range(1, len(test)):
+        copied = test[index-1]
+        steps.append({"type":"COPY","value":copied})
+        cost+= 1
+        current = test[index]
+        steps.append({"type":"TRANSFORM","value":current})
+        for indexc, ch in enumerate(copied):
+            if ch != current[indexc]:
+                cost += 1
+
+    return jsonify({"cost":cost, "steps":steps})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
