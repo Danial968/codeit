@@ -470,10 +470,11 @@ def typing():
             steps.append({'type':'TRANSFORM', 'value':to_change})
             word_list.append(to_change)
             my_str= to_change
-            if(word_list == len(input)):
-                break
-            actions.append('COPY')
-            steps.append({'type':'COPY', 'value':to_change})
+            if(len(word_list) != len(input)):
+                actions.append('COPY')
+                steps.append({'type':'COPY', 'value':to_change})
+        
+
         
         
     result = {"cost":counter,"steps":steps}
