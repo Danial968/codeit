@@ -26,7 +26,7 @@ def last_digit(n1, n2):
         if nxt == cycle[0]:
             break
         cycle.append(nxt)
-    return cycle[(n2 - 1) % len(cycle)] 
+    return cycle[(n2 - 1) % len(cycle)]
 
 def player(n, p):
 
@@ -46,7 +46,6 @@ def player(n, p):
 
     # print(first, length_of, last)
 
-    # print([num[0],len(num),num[-1]])
 
     # number = test['n']**test['p']
     # digits = (int)(math.log10(number))
