@@ -359,19 +359,23 @@ def guncontrol():
             endpointNfuel += [((y,x),fuel)]
         
     moveEnd((0,0),grid,gridVisit,endpointNfuel,0)
+    # for i in range(len(endpointNfuel)):
+    #     nextFinal = [endpointNfuel[i]]
+    #     for j in range(len(endpointNfuel)):
+    #         if i != j:
+    #             add = nextFinal + [endpointNfuel[j]]
+    #             fueltotal = 0
+    #             for it in add:
+    #                 fueltotal += it[1]
+    #             if sum(map(lambda x: x[1], add)) <= fuel:
+    #                 nextFinal += [endpointNfuel[j]]
+    #     if len(nextFinal) > len(final):
+    #         final = nextFinal
     for i in range(len(endpointNfuel)):
-        nextFinal = [endpointNfuel[i]]
-        for j in range(len(endpointNfuel)):
-            if i != j:
-                add = nextFinal + [endpointNfuel[j]]
-                fueltotal = 0
-                for it in add:
-                    fueltotal += it[1]
-                if sum(map(lambda x: x[1], add)) <= fuel:
-                    nextFinal += [endpointNfuel[j]]
-        if len(nextFinal) > len(final):
-            final = nextFinal
-
+        perms = itertools.permutations(endpointNfuel,i)
+        for setlist in list(perms):
+            if sum(map(lambda x: x[1], setlist)) <= fuel:
+                final = setlist
     hits = []
     for item in final:
         hits.append(
