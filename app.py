@@ -463,14 +463,18 @@ def typing():
             for word in input:
                 if word!=my_str:
                     key = my_str +':'+ word
-                    if comparator[key] < change:
+                    if comparator[key] < change and word not in word_list:
                         to_change = word
                         change = comparator[key]
             counter += change
             steps.append({'type':'TRANSFORM', 'value':to_change})
             word_list.append(to_change)
+            my_str= to_change
+            if(word_list == len(input)):
+                break
             actions.append('COPY')
             steps.append({'type':'COPY', 'value':to_change})
+        
         
     result = {"cost":counter,"steps":steps}
     print(result)
