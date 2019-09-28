@@ -51,4 +51,4 @@ def player(n, p):
     # digits = (int)(math.log10(number))
 
     # n = (int)(n/pow(10, number))
-player(0,0)
+player(0,1)
