@@ -211,7 +211,7 @@ def exponential():
         return cycle[(n2 - 1) % len(cycle)] 
 
     my_dict = {}
-    my_dict['result'] = [first_digit(n, p), len_digit(n, p), last_digit(n, p)]
+    my_dict['result'] = [first_digit(n, p), len_digit(n,p), last_digit(n, p)]
 
     return jsonify(my_dict)
 
