@@ -154,7 +154,7 @@ def lottery():
         my_list.append(random.randint(1,101))
 
     # return jsonify(my_list)
-    return jsonify([50,50,50,50,50,50,50,50,50,50])
+    return jsonify([5,15,50,50,50,50,50,50,50,50])
 
 
 @app.route('/maximise_1c', methods = ["POST"])
@@ -373,11 +373,19 @@ def guncontrol():
     #                 nextFinal += [endpointNfuel[j]]
     #     if len(nextFinal) > len(final):
     #         final = nextFinal
-    for i in range(len(endpointNfuel)):
-        perms = itertools.permutations(endpointNfuel,i)
-        for setlist in list(perms):
-            if sum(map(lambda x: x[1], setlist)) <= fuel:
-                final = setlist
+    # for i in range(len(endpointNfuel)):
+    #     perms = itertools.permutations(endpointNfuel,i)
+    #     for setlist in list(perms):
+    #         if sum(map(lambda x: x[1], setlist)) <= fuel:
+    #             final = setlist
+    endpointNfuel.sort(key= lambda x:x[1])
+    finalfuel = 0
+    for item in endpointNfuel:
+        if finalfuel + item[1] <=fuel:
+            final += [item]
+            finalfuel += item[1]
+        else:
+            break
     hits = []
     for item in final:
         hits.append(

@@ -5,13 +5,17 @@ def maximise_1a(test):
     startingCapital = test["startingCapital"]
     stocks = test["stocks"]
     output = {}
-    best_ko = []
+    best_stock = []
     profit = 0
     portfolio = []
-
+    
     for stock in itertools.permutations(stocks):
-        current_profit = 0
-        for i in range(len(stock)):
+        tempCapital = startingCapital
+        count = 0
+        while(tempCapital != 0):
+            tempCapital -= stock[count]
+
+        # for i in range(len(stock)):
 
 
     print(all_stocks)
