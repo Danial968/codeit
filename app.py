@@ -143,5 +143,44 @@ def nic():
 
     return jsonify(output)
 
+@app.route('/generateSequence', methods = ["POST"])
+def depend():
+    test = request.json
+    final = []
+    dependency = {}
+    stack = set({})
+    moduleSet = set(test["modules"])
+
+    for item in test["dependencyPairs"]:
+        if item["dependee"] in dependency:
+            dependency[item["dependee"]] += [item["dependentOn"]]
+        else:
+            dependency[item["dependee"]] = [item["dependentOn"]]
+        stack.add(item["dependee"])
+
+    # add with no dependentOn
+    for item in moduleSet.difference(stack):
+        final += [item]
+    for item in final:
+        moduleSet.remove(item)
+
+    #fff
+    prevCount = len(moduleSet)
+    currentCount = -1
+    
+    while currentCount!= prevCount:
+        prevCount = len(moduleSet)
+        nextF = []
+        for item in moduleSet:
+            dependsOn = dependency[item]
+            if all(elem in final  for elem in dependsOn):
+                nextF += [item]
+        final += nextF 
+        for item in nextF:
+            moduleSet.remove(item)
+        currentCount = len(moduleSet)
+    
+    return  jsonify(final)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
