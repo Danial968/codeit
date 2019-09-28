@@ -104,8 +104,17 @@ def chessgame():
 
     return jsonify(total)
 
-# @app.route('/sentiment-analysis', methods = ["POST"])
-# def sentimentanalysis():
+@app.route('/sentiment-analysis', methods = ["POST"])
+def sentimentanalysis():
+    test = request.json
+    num = len(test)
+    my_list = ['positive','negative']
+    response = []
+    for i in range(num):
+        response.append(rand(my_list))
+    my_dict['response'] = response
+    return jsonify(my_dict)
+
 
 #     def create_word_features(words):
 #         useful_words = [word for word in words if word not in stopwords.words("english")]
