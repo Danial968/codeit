@@ -13,7 +13,7 @@ def compo(dict):
         if banned in compo:
             count+=1
             compo = compo.replace(banned,'')
-    
+
     result = {"testId":dict['setId'],"result":count}
     print(result)
 my_str = 'abcdef'
