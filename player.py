@@ -1,17 +1,24 @@
 import math
 
 def first_digit(n, p):
+    if p == 0:
+        return 1
+    if n == 0:
+        return 0
     value = p*(math.log10(n))
     frac, whole = math.modf(value)
-    first_d = 10**frac
-    return int(str(first_d)[:1])
+    return int(str(10**frac)[:1])
 
 def len_digit(n, p):
+    if n == 0:
+        return 1
     return int(p*(math.log10(n))+1)
 
 def last_digit(n1, n2):
     if n2 == 0:
         return 1
+    if n1 == 0:
+        return 0
 
     cycle = [n1 % 10]
     while True:
@@ -23,7 +30,6 @@ def last_digit(n1, n2):
 
 def player(n, p):
 
-    return()
 
     print(last_digit(n,p))
     print(len_digit(n,p))
@@ -46,4 +52,4 @@ def player(n, p):
     # digits = (int)(math.log10(number))
 
     # n = (int)(n/pow(10, number))
-player(5,2)
+player(0,0)
