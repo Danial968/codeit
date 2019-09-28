@@ -269,25 +269,25 @@ def exponential():
 
     return jsonify(my_dict)
 
-@app.route('/typing-contest', methods = ["POST"])
-def typeit():
-    test = request.json
-    cost = 0
-    steps= []
-    steps.append({"type":"INPUT","value":test[0]})
-    cost+= len(test[0])
+# @app.route('/typing-contest', methods = ["POST"])
+# def typeit():
+#     test = request.json
+#     cost = 0
+#     steps= []
+#     steps.append({"type":"INPUT","value":test[0]})
+#     cost+= len(test[0])
 
-    for index in range(1, len(test)):
-        copied = test[index-1]
-        steps.append({"type":"COPY","value":copied})
-        cost+= 1
-        current = test[index]
-        steps.append({"type":"TRANSFORM","value":current})
-        for indexc, ch in enumerate(copied):
-            if ch != current[indexc]:
-                cost += 1
+#     for index in range(1, len(test)):
+#         copied = test[index-1]
+#         steps.append({"type":"COPY","value":copied})
+#         cost+= 1
+#         current = test[index]
+#         steps.append({"type":"TRANSFORM","value":current})
+#         for indexc, ch in enumerate(copied):
+#             if ch != current[indexc]:
+#                 cost += 1
 
-    return jsonify({"cost":cost, "steps":steps})
+#     return jsonify({"cost":cost, "steps":steps})
 
 @app.route('/gun-control', methods = ["POST"])
 def guncontrol():
@@ -374,19 +374,12 @@ def guncontrol():
     #                 nextFinal += [endpointNfuel[j]]
     #     if len(nextFinal) > len(final):
     #         final = nextFinal
-    # for i in range(len(endpointNfuel)):
-    #     perms = itertools.permutations(endpointNfuel,i)
-    #     for setlist in list(perms):
-    #         if sum(map(lambda x: x[1], setlist)) <= fuel:
-    #             final = setlist
-    endpointNfuel.sort(key= lambda x:x[1])
-    finalfuel = 0
-    for item in endpointNfuel:
-        if finalfuel + item[1] <=fuel:
-            final += [item]
-            finalfuel += item[1]
-        else:
-            break
+    for i in range(len(endpointNfuel)):
+        perms = itertools.permutations(endpointNfuel,i)
+        for setlist in list(perms):
+            if sum(map(lambda x: x[1], setlist)) == fuel:
+                final = setlist
+
     hits = []
     for item in final:
         hits.append(
@@ -401,32 +394,11 @@ def guncontrol():
     output = {"hits": hits}
     return jsonify(output)
 
-@app.route('/composition', methods = ["POST"])
-def composition():
-    input = request.json
-    # print(input)
-    compo = input['composition']
-    ban = input['patterns']
-
-    long_ban = []
-    count = 0
-    for ch in ban:
-        long_ban.append(ch)
-        long_ban.append(ch[1] + ch[0])
-
-    for banned in long_ban:
-
-        if banned in compo:
-            count+=1
-            compo = compo.replace(banned,'')
-    
-    result = {"testId":input['setId'],"result":count}
-    return jsonify(result)
-
 @app.route('/typing-contest', methods = ["POST"])
-def typing():
+def typing_contest():
     input = request.json
-    print(request.json)
+    # print('hello world')
+    # print(input)
     comparator = {}
 
     for words in input:
@@ -471,14 +443,11 @@ def typing():
             steps.append({'type':'TRANSFORM', 'value':to_change})
             word_list.append(to_change)
             my_str= to_change
-            if(word_list == len(input)):
-                break
-            actions.append('COPY')
-            steps.append({'type':'COPY', 'value':to_change})
-        
-        
+            if(len(word_list) != len(input)):
+                actions.append('COPY')
+                steps.append({'type':'COPY', 'value':to_change})
+
     result = {"cost":counter,"steps":steps}
-    print(result)
     return jsonify(result)
 
 @app.route('/bucket-fill', methods = ["POST"])
@@ -495,6 +464,38 @@ def bucketfill():
             total_area += (abs(int(att_list[0][0]) - int(att_list[2][0])) - 1) * abs(int(att_list[0][1]) - int(att_list[2][1]))   
     return jsonify(total_area)
 
+
+@app.route('/composition', methods = ["POST"])
+def composition():
+    input = request.json
+    print(input)
+    compo = input['composition']
+    ban = input['patterns']
+
+    long_ban = []
+    count = 0
+    for ch in ban:
+        long_ban.append(ch)
+        long_ban.append(ch[1] + ch[0])
+
+    for banned in long_ban:
+
+        if banned in compo:
+            count+=1
+            compo = compo.replace(banned,'')
+    
+    result = {"testId":input['setId'],"result":count}
+    return jsonify(result)
+
+
+@app.route('/readyplayerone', methods = ["POST"])
+def player():
+    my_list = {}
+    # for i in range(10):
+    #     my_list.append(random.randint(1,101))
+
+    my_list['res'] = -1
+    return jsonify(my_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
