@@ -1,1 +1,1 @@
-worker: python awwbot.py
+web: gunicorn app:app
