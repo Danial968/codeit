@@ -416,7 +416,7 @@ def composition():
     return jsonify(result)
 
 @app.route('/typing-contest', methods = ["POST"])
-def contest():
+def typing_contest():
     input = request.json
     print('hello world')
     print(input)
