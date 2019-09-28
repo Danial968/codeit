@@ -21,7 +21,7 @@ def square():
 def aus():
     input = request.json
     input.sort()
-    return jsonify(input)
+    return jsonify(input) 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
