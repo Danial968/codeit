@@ -25,11 +25,11 @@ def aus():
 
     queen_row = queen[0]
     queen_col = queen[1]
-
+    
     top = queen_row-1
-    down = abs(n-queen_row)-1
+    down = abs(n-queen_row)
     left = queen_col-1
-    right = abs(n-queen_col)-1
+    right = abs(n-queen_col)
     ttop_right = min(top, right)
     ttop_left = min(top, left)
     tdown_right = min(down, right)
@@ -52,7 +52,7 @@ def aus():
                     right = temp
         # Top
         elif(obstacles[i][1] == queen_col):
-            if(obstacles[i][0] > queen_row):
+            if(obstacles[i][0] < queen_row):
                 temp = abs(obstacles[i][1]-queen_col)-1
                 if(top > temp):
                     top = temp
