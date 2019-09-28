@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 def contest(input):
     
@@ -52,8 +53,9 @@ def contest(input):
                 
         
     result = {"cost":counter,"steps":steps}
-    print(pd.DataFrame(result))
-    print(result)
+    # print(pd.DataFrame(result))
+    y= json.dumps(result)
+    print(y)
 
 
 contest(['laziest','busiest','easiest'])
