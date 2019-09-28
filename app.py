@@ -91,7 +91,7 @@ def aus():
     total = diagonal_left + diagonal_left_up + diagonal_right + diagonal_right_up + steps_down + steps_left + steps_right + steps_up
 
     
-    return jsonify(test)
+    return jsonify(total)
 
 @app.route('/lottery', methods = ["POST"])
 def aus():
