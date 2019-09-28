@@ -1,6 +1,5 @@
 import os
 from flask import Flask, jsonify, request
-import random
 
 app = Flask(__name__)
 @app.after_request
