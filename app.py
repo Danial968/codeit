@@ -418,7 +418,7 @@ def composition():
 @app.route('/typing-contest', methods = ["POST"])
 def typing():
     input = request.json
-    print(request.json)
+    print(input)
     comparator = {}
 
     for words in input:
