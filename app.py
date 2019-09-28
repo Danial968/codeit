@@ -493,12 +493,46 @@ def composition():
 
 @app.route('/readyplayerone', methods = ["POST"])
 def player():
-    my_list = {}
-    # for i in range(10):
-    #     my_list.append(random.randint(1,101))
+    test = request.json
 
     my_list['res'] = -1
     return jsonify(my_list)
+
+@app.route('/prismo', methods = ["POST"])
+def prismo():
+    test = request.json
+    initial = test["initial"]
+    goal = test["goal"]
+    current = initial
+    moves = []
+    output = {}
+
+    while(current != goal):
+        for i in range(len(current)):
+            if 0 in current[i]:
+                current_index = [i, current[i].index(0)]
+                break
+        num_at_goal = goal[current_index[0]][current_index[1]]
+        for i in range(len(current)):
+            if num_at_goal in current[i]:
+                to_move = [i, current[i].index(num_at_goal)]
+                break
+        if to_move[0] == current_index[0]:
+            if to_move[1] < current_index[1]:
+                moves.append("L")
+                current[to_move[0]][to_move[1]], current[current_index[0]][current_index[1]] = current[current_index[0]][current_index[1]], current[to_move[0]][to_move[1]]
+            else:
+                moves.append("R")
+                current[to_move[0]][to_move[1]], current[current_index[0]][current_index[1]] = current[current_index[0]][current_index[1]], current[to_move[0]][to_move[1]]
+        else:
+            if to_move[0] < current_index[0]:
+                moves.append("B")
+                current[to_move[0]][to_move[1]], current[current_index[0]][current_index[1]] = current[current_index[0]][current_index[1]], current[to_move[0]][to_move[1]]
+            else:
+                moves.append("F")
+                current[to_move[0]][to_move[1]], current[current_index[0]][current_index[1]] = current[current_index[0]][current_index[1]], current[to_move[0]][to_move[1]]
+    output["moves"] = moves
+    return jsonify(output)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
