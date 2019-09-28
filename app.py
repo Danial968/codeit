@@ -425,7 +425,7 @@ def guncontrol():
 @app.route('/composition', methods = ["POST"])
 def composition():
     input = request.json
-    print(input)
+    # print(input)
     compo = input['composition']
     ban = input['patterns']
 
