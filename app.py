@@ -108,7 +108,7 @@ def aus():
 
     input = request.json
     modules = input['modules']
-    print(modules) 
+    print(modules)  
     dependency = input[dependencyPairs]
     return jsonify(modules)
     # return(test)
