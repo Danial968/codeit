@@ -104,7 +104,7 @@ def aus():
 
 
 @app.route('/generateSequence', methods = ["POST"])
-def aus():
+def second():
 
     input = request.json
     modules = input['modules']
