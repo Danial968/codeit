@@ -543,7 +543,7 @@ def prismo():
                 current[to_move[0]][to_move[1]], current[current_index[0]][current_index[1]] = current[current_index[0]][current_index[1]], current[to_move[0]][to_move[1]]
     output["moves"] = moves
     return jsonify(output)
-
+    
 @app.route('/defuse', methods = ["POST"])
 def defuse():
     input = request.json
