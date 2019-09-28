@@ -5,6 +5,7 @@ import math
 import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import itertools
 
 app = Flask(__name__)
 @app.after_request
@@ -273,6 +274,100 @@ def typeit():
                 cost += 1
 
     return jsonify({"cost":cost, "steps":steps})
+
+@app.route('/gun-control', methods = ["POST"])
+def guncontrol():
+    test = request.json
+    unprocess = test['grid']
+    fuel = test['fuel']
+    endpointNfuel = []
+    grid = []
+    gridVisit = []
+    startpoint = (0,0)
+    final = []
+
+    for line in unprocess:
+        grid.append(list(line))
+        gridVisit.append(['O' for ch in line])
+
+    for y in range(len(grid)):
+        line = grid[y]
+        for x in range(len(line)):
+            if grid[y][x] == "X":
+                gridVisit[y][x] = "B"
+    
+    def moveEnd(currentPoint,grid,gridVisit,endpointNfuel,fuel):
+        fuel += 1
+        movetop = False
+        moveleft= False
+        moveright= False
+        movebot = False
+        y = currentPoint[0]
+        x = currentPoint[1]
+        gridVisit[y][x] = "V"
+        try:
+            # top
+            if (gridVisit[y-1][x] !=  "V" and gridVisit[y-1][x] !=  "B") and y-1 > -1:
+                if grid[y-1][x] ==  "O":
+                    movetop = True
+        except:
+            pass
+        try:
+            # right
+            if (gridVisit[y][x+1] !=  "V" and gridVisit[y][x+1] !=  "B") and x+1 < len(grid[0]):
+                if grid[y][x+1] ==  "O":
+                    moveright = True
+        except:
+            pass
+        try:
+            # bot
+            if (gridVisit[y+1][x] !=  "V" and gridVisit[y+1][x] !=  "B") and y+1 < len(grid):
+                if grid[y+1][x] ==  "O":
+                    movebot = True
+        except:
+            pass
+        try:
+            # left
+            if (gridVisit[y][x-1] !=  "V" and gridVisit[y][x-1] !=  "B") and x-1 > -1:
+                if grid[y][x-1] ==  "O":
+                    moveleft = True
+        except:
+            pass
+        if movetop:
+            moveEnd((y-1,x),grid,gridVisit,endpointNfuel,fuel)
+        if moveright:
+            moveEnd((y,x+1),grid,gridVisit,endpointNfuel,fuel)
+        if movebot:
+            moveEnd((y+1,x),grid,gridVisit,endpointNfuel,fuel)
+        if moveleft:
+            moveEnd((y,x-1),grid,gridVisit,endpointNfuel,fuel)
+
+        if (not movetop) and (not moveright) and (not movebot) and (not moveleft):
+            # add to endpoint
+            endpointNfuel += [((y,x),fuel)]
+        
+    moveEnd((0,0),grid,gridVisit,endpointNfuel,0)
+    #print(endpointNfuel)
+    for i in range(len(endpointNfuel)):
+        possible = itertools.permutations(endpointNfuel,i)
+        for case in list(possible):
+            if sum(map(lambda x: x[1], case)) <= fuel:
+                final = case
+
+    hits = []
+    for item in final:
+        print(item)
+        hits.append(
+            {
+                "cells": { 
+                    "x": (item[0][1] + 1),
+                    "y": (item[0][0] + 1)
+                },
+                "guns": item[1]
+            }
+        )
+    output = {"hits": hits}
+    return jsonify(output)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
