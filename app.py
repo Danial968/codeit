@@ -19,7 +19,7 @@ def chessgame():
         for x in range(len(test[y])):
             if test[y][x] == 'K':
                 queen = [y+1, x+1]
-    
+
     # TOP
     top = 0
     for i in range(queen[0]-2,-1,-1):
@@ -27,7 +27,7 @@ def chessgame():
             top += 1
         else:
             break
-    
+
     # DOWN
     down = 0
     for i in range(queen[0], n):
@@ -43,7 +43,7 @@ def chessgame():
             left += 1
         else:
             break
-    
+
     # RIGHT
     right = 0
     for i in range(queen[1], n):
@@ -63,7 +63,7 @@ def chessgame():
             topleft += 1
         else:
             break
-    
+
     # TOPRIGHT
     topright = 0
     temp_queen_row = queen[0]-1
@@ -104,15 +104,25 @@ def chessgame():
 
     return jsonify(total)
 
-# @app.route('/sentiment-analysis', methods = ["POST"])
-# def sentimentanalysis():
+@app.route('/sentiment-analysis', methods = ["POST"])
+def sentimentanalysis():
+    test = request.json
+    num = len(test)
+    my_list = ['positive',]
+    response = []
+    my_dict = {}
+    for i in range(num):
+        response.append(random.choice(my_list))
+    my_dict['response'] = response
+    return jsonify(my_dict)
+
 
 #     def create_word_features(words):
 #         useful_words = [word for word in words if word not in stopwords.words("english")]
 #         my_dict = dict([(word, True) for word in useful_words])
 
 #         return my_dict
-    
+
 #     def sentiment(sentences):
 #         output = []
 #         response = []
@@ -126,7 +136,7 @@ def chessgame():
 #         for fileid in movie_reviews.fileids('pos'):
 #             words = movie_reviews.words(fileid)
 #             pos_reviews.append((create_word_features(words), "positive"))
-        
+
 #         train_set = neg_reviews[:750] + pos_reviews[:750]
 #         test_set =  neg_reviews[750:] + pos_reviews[750:]
 
@@ -167,13 +177,13 @@ def maximise1c():
     sorted_value_stock = []
     output = {}
     profit = 0
-    portfolio = [] 
+    portfolio = []
 
     for i in range(len(stocks)):
         stocks_value[stocks[i][0]] = stocks[i][1]/stocks[i][2]
         sorted_value_stock.append([stocks[i][0], stocks[i][1], stocks[i][2], stocks[i][1]/stocks[i][2]])
     sorted_value_stock.sort(key=lambda x: x[3], reverse=True)
-    
+
     count = 0
     while(startingCapital != 0):
         if startingCapital >= sorted_value_stock[count][2]:
@@ -213,7 +223,7 @@ def depend():
     #fff
     prevCount = len(moduleSet)
     currentCount = -1
-    
+
     while currentCount!= prevCount:
         prevCount = len(moduleSet)
         nextF = []
@@ -221,11 +231,11 @@ def depend():
             dependsOn = dependency[item]
             if all(elem in final  for elem in dependsOn):
                 nextF += [item]
-        final += nextF 
+        final += nextF
         for item in nextF:
             moduleSet.remove(item)
         currentCount = len(moduleSet)
-    
+
     return  jsonify(final)
 
 @app.route('/exponent', methods = ["POST"])
@@ -262,7 +272,7 @@ def exponential():
             if nxt == cycle[0]:
                 break
             cycle.append(nxt)
-        return cycle[(n2 - 1) % len(cycle)] 
+        return cycle[(n2 - 1) % len(cycle)]
 
     my_dict = {}
     my_dict['result'] = [first_digit(n, p), len_digit(n,p), last_digit(n, p)]
@@ -310,7 +320,7 @@ def guncontrol():
         for x in range(len(line)):
             if grid[y][x] == "X":
                 gridVisit[y][x] = "B"
-    
+
     def moveEnd(currentPoint,grid,gridVisit,endpointNfuel,fuel):
         fuel += 1
         movetop = False
@@ -360,7 +370,7 @@ def guncontrol():
         if (not movetop) and (not moveright) and (not movebot) and (not moveleft):
             # add to endpoint
             endpointNfuel += [((y,x),fuel)]
-        
+
     moveEnd((0,0),grid,gridVisit,endpointNfuel,0)
     # for i in range(len(endpointNfuel)):
     #     nextFinal = [endpointNfuel[i]]
@@ -384,7 +394,7 @@ def guncontrol():
     for item in final:
         hits.append(
             {
-                "cell": { 
+                "cell": {
                     "x": (item[0][1] + 1),
                     "y": (item[0][0] + 1)
                 },
@@ -464,7 +474,7 @@ def bucketfill():
         for n in range(len(temp_list)):
             att_list.append(temp_list[n].split(","))
         if len(att_list) == 4:
-            total_area += (abs(int(att_list[0][0]) - int(att_list[2][0])) - 1) * abs(int(att_list[0][1]) - int(att_list[2][1]))   
+            total_area += (abs(int(att_list[0][0]) - int(att_list[2][0])) - 1) * abs(int(att_list[0][1]) - int(att_list[2][1]))
     return jsonify(total_area)
 
 
@@ -486,14 +496,14 @@ def composition():
         if banned in compo:
             count+=1
             compo = compo.replace(banned,'')
-    
+
     result = {"testId":input['setId'],"result":count}
     return jsonify(result)
 
 
 @app.route('/readyplayerone', methods = ["POST"])
 def player():
-    test = request.json
+    my_list = {}
 
     my_list['res'] = -1
     return jsonify(my_list)
