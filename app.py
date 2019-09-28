@@ -110,8 +110,9 @@ def sentimentanalysis():
     num = len(test)
     my_list = ['positive','negative']
     response = []
+    my_dict = {}
     for i in range(num):
-        response.append(rand(my_list))
+        response.append(random.choice(my_list))
     my_dict['response'] = response
     return jsonify(my_dict)
 
