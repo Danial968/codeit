@@ -31,7 +31,7 @@ def chessgame(test):
         # Left
         if(obstacles[i][0] == queen_row):
             if(obstacles[i][1] < queen_col):
-                temp = abs(obstacles[1]-queen_col)-1
+                temp = abs(obstacles[i][1]-queen_col)-1
                 if(left > temp):
                     left = temp
             # right
@@ -42,7 +42,7 @@ def chessgame(test):
         # Top
         elif(obstacles[i][1] == queen_col):
             if(obstacles[i][0] > queen_row):
-                temp = abs(obstacles[1]-queen_col)-1
+                temp = abs(obstacles[i][1]-queen_col)-1
                 if(top > temp):
                     top = temp
             # down
