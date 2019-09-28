@@ -418,6 +418,7 @@ def composition():
 @app.route('/typing-contest', methods = ["POST"])
 def composition():
     input = request.json
+    print(input)
     comparator = {}
 
     for words in input:
@@ -465,6 +466,7 @@ def composition():
             steps.append({'type':'COPY', 'value':to_change})
         
     result = {"cost":counter,"steps":steps}
+    print(result)
     return jsonify(result)
 
 
