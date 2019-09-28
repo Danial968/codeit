@@ -396,8 +396,8 @@ def guncontrol():
 @app.route('/typing-contest', methods = ["POST"])
 def typing_contest():
     input = request.json
-    print('hello world')
-    print(input)
+    # print('hello world')
+    # print(input)
     comparator = {}
 
     for words in input:
