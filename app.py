@@ -8,14 +8,6 @@ def apply_content_type(response):
     response.headers["Content-type"] = "application/json"
     return response
 
-@app.route('/chessgame', methods = ["POST"])
-def aus():
-    test = request.json
-    queen = []
-    obstacles = []
-
-    print(test)
-
 
 
 
