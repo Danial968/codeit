@@ -115,7 +115,7 @@ def aus():
 @app.route('/lottery', methods = ["GET"])
 def aus():
     test = request.json
-    # print("Hello world")
+    print("Hello world")
     # print(test)
     result = []
     for i in range (10):
