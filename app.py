@@ -110,8 +110,9 @@ def aus():
     modules = input['modules']
     print(modules)  
     dependency = input[dependencyPairs]
-    return jsonify(modules)
+    # return jsonify(modules)
     # return(test)
+    return '0'
 
 # @app.route('/lottery', methods = ["GET"])
 # def aus():
