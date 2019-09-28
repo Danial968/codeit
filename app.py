@@ -13,6 +13,7 @@ def aus():
     test = request.json
     queen = []
     obstacles = []
+    print(test)
     for y in range(len(test)):
         n = len(test)
 
