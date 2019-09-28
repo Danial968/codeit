@@ -104,7 +104,7 @@ def aus():
 
 
 @app.route('/generateSequence', methods = ["POST"])
-def app():
+def app(first, second):
 
     input = request.json
     modules = input['modules']
@@ -112,6 +112,8 @@ def app():
     dependency = input[dependencyPairs]
     # return jsonify(modules)
     # return(test)
+    print(first)
+    print(second)
     return '0'
 
 
