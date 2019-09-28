@@ -402,5 +402,28 @@ def guncontrol():
     output = {"hits": hits}
     return jsonify(output)
 
+@app.route('/composition', methods = ["POST"])
+def composition():
+    input = request.json
+    # print(input)
+    compo = input['composition']
+    ban = input['patterns']
+
+    long_ban = []
+    count = 0
+    for ch in ban:
+        long_ban.append(ch)
+        long_ban.append(ch[1] + ch[0])
+
+    for banned in long_ban:
+
+        if banned in compo:
+            count+=1
+            compo = compo.replace(banned,'')
+    
+    result = {"testId":input['setId'],"result":count}
+    return jsonify(result)
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))

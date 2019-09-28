@@ -1,25 +1,22 @@
-def composition(test):
+def compo(dict):
+    compo = dict['composition']
+    ban = dict['patterns']
 
-    patterns = test["patterns"]
-    my_dic = {}
-    for pattern in patterns:
-        for ch in pattern:
-            if ch not in my_dic:
-                my_dic[ch] = 1
-            else:
-                my_dic[ch] += 1
-    
-    
-test = {
-  "setId" : "1",
-  "compositionLength" : 5,
-  "composition" : "abcde",
-  "noOfCase" : 3,
-  "patterns":[
-    "ac",
-    "ab",
-    "de"
-  ]
-}
+    long_ban = []
+    count = 0
+    for ch in ban:
+        long_ban.append(ch)
+        long_ban.append(ch[1] + ch[0])
 
-print(composition(test))
+    for banned in long_ban:
+
+        if banned in compo:
+            count+=1
+            compo = compo.replace(banned,'')
+
+    result = {"testId":dict['setId'],"result":count}
+    print(result)
+my_str = 'abcdef'
+
+# print(my_str.translate({ord('ab')}:None))
+compo({"setId": '1', "compositionLength":5, "composition": "abcdeab", 'noOfCase':3, "patterns":['ac','ab','de']})
