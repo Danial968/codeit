@@ -10,7 +10,7 @@ def apply_content_type(response):
     return response
 
 @app.route('/chessgame', methods = ["POST"])
-def aus():
+def chessgame():
     test = request.json
     queen = []
     n = len(test)
@@ -153,7 +153,8 @@ def lottery():
     for i in range(10):
         my_list.append(random.randint(1,101))
 
-    return jsonify(my_list)
+    # return jsonify(my_list)
+    return jsonify([50,50,50,50,50,50,50,50,50,50])
 
 
 @app.route('/maximise_1c', methods = ["POST"])
