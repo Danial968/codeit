@@ -10,7 +10,7 @@ def apply_content_type(response):
 
 @app.route('/chessgame', methods = ["POST"])
 def aus():
-    test = requests.json
+    test = request.json
     queen = []
     obstacles = []
 
