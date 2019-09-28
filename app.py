@@ -26,7 +26,7 @@ def aus():
         
         return [ b for c in ( [a] * buckets[a] for a in range(m+1) ) for b in c ]
     input = request.json
-    return jsonify(countsort(input))
+    return jsonify(countsort(input)) 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
