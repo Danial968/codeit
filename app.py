@@ -154,7 +154,7 @@ def lottery():
         my_list.append(random.randint(1,101))
 
     # return jsonify(my_list)
-    return jsonify([5,50,50,50,50,50,50,50,50,50])
+    return jsonify([5,70,50,50,50,50,50,50,50,50])
 
 
 @app.route('/maximise_1c', methods = ["POST"])
