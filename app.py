@@ -2,6 +2,9 @@ import os
 from flask import Flask, jsonify, request
 import random
 import math
+import nltk
+nltk.download('vader_lexicon')
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 app = Flask(__name__)
 @app.after_request
@@ -101,11 +104,25 @@ def aus():
 
     return jsonify(top+top_left+top_right+right+left+down+down_left+down_right)
 
+@app.route('/sentiment-analysis', methods = ["POST"])
+def sentimentanalysis():
+    test = request.json
+    sentences = test["reviews"]
+    response = []
+    output = {}
 
-
+    for sentence in sentences:
+        sid = SentimentIntensityAnalyzer()
+        print(sid.polarity_scores(sentence))
+        if sid.polarity_scores(sentence)["neg"] < sid.polarity_scores(sentence)["pos"]:
+            response.append("positive")
+        else:
+            response.append("negative")
+    output["response"] = response
+    return output
 
 @app.route('/lottery', methods = ["GET"])
-def test():
+def lottery():
     my_list = []
     for i in range(10):
         my_list.append(random.randint(1,101))
@@ -114,9 +131,8 @@ def test():
 
 
 @app.route('/maximise_1c', methods = ["POST"])
-def nic():
+def maximise1c():
     test = request.json
-    print(test)
     startingCapital = test["startingCapital"]
     stocks = test["stocks"]
     stocks_value = {}
