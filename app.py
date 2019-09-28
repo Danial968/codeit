@@ -268,25 +268,25 @@ def exponential():
 
     return jsonify(my_dict)
 
-@app.route('/typing-contest', methods = ["POST"])
-def typeit():
-    test = request.json
-    cost = 0
-    steps= []
-    steps.append({"type":"INPUT","value":test[0]})
-    cost+= len(test[0])
+# @app.route('/typing-contest', methods = ["POST"])
+# def typeit():
+#     test = request.json
+#     cost = 0
+#     steps= []
+#     steps.append({"type":"INPUT","value":test[0]})
+#     cost+= len(test[0])
 
-    for index in range(1, len(test)):
-        copied = test[index-1]
-        steps.append({"type":"COPY","value":copied})
-        cost+= 1
-        current = test[index]
-        steps.append({"type":"TRANSFORM","value":current})
-        for indexc, ch in enumerate(copied):
-            if ch != current[indexc]:
-                cost += 1
+#     for index in range(1, len(test)):
+#         copied = test[index-1]
+#         steps.append({"type":"COPY","value":copied})
+#         cost+= 1
+#         current = test[index]
+#         steps.append({"type":"TRANSFORM","value":current})
+#         for indexc, ch in enumerate(copied):
+#             if ch != current[indexc]:
+#                 cost += 1
 
-    return jsonify({"cost":cost, "steps":steps})
+#     return jsonify({"cost":cost, "steps":steps})
 
 @app.route('/gun-control', methods = ["POST"])
 def guncontrol():
