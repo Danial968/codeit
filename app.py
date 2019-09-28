@@ -25,7 +25,7 @@ def aus():
 
     queen_row = queen[0]
     queen_col = queen[1]
-    
+
     top = queen_row-1
     down = abs(n-queen_row)-1
     left = queen_col-1
