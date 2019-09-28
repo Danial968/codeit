@@ -1,4 +1,5 @@
-import math
+import mat
+
 def firstDigit(n):
     digits = (int)(math.log10(n))
 
