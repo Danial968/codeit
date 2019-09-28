@@ -289,6 +289,7 @@ def typeit():
 @app.route('/gun-control', methods = ["POST"])
 def guncontrol():
     test = request.json
+    print(test)
     unprocess = test['grid']
     fuel = test['fuel']
     endpointNfuel = []
@@ -296,7 +297,7 @@ def guncontrol():
     gridVisit = []
     startpoint = (0,0)
     final = []
-    
+
     for line in unprocess:
         grid.append(list(line))
         gridVisit.append(['O' for ch in line])
