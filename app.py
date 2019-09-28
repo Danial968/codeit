@@ -132,7 +132,7 @@ def sentimentanalysis():
         else:
             response.append("negative")
     output["response"] = response
-    return output
+    return jsonify(output)
 
 @app.route('/lottery', methods = ["GET"])
 def lottery():
