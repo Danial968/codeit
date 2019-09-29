@@ -684,6 +684,7 @@ def bank():
 @app.route('/maximise_1a', methods = ["POST"])
 def max_1a():
     test = request.json
+    print(test)
     startingCapital = test["startingCapital"]
     stocks = test["stocks"]
     output = {}
@@ -724,7 +725,7 @@ def max_1a():
         if my_dict['profit'] > highest:
             highest = my_dict['profit']
             answer = my_dict
-
+    print(answer)
     return jsonify(answer)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
