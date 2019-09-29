@@ -7,9 +7,10 @@ def bank(test):
 
     for i in range(len(current_time), n):
         branch_go = current_time.index(min(current_time))
+        time_taken = current_time[branch_go]
         for j in range(len(current_time)):
             if current_time[j] > 0:
-                current_time[j] -= current_time[branch_go]
+                current_time[j] -= time_taken
                 if current_time[j] < 0:
                     current_time[j] = 0
         current_time[branch_go] = start_time[branch_go]
