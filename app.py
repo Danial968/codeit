@@ -646,7 +646,7 @@ def encryption():
                 new_text += text[i].upper()
         if len(new_text) < n:
             my_list.append(new_text)
-            break
+            continue
 
         current_list = ['']*len(new_text)
         count = 0
@@ -657,7 +657,7 @@ def encryption():
                 count = rounds
                 rounds += 1
             current_list[count] = new_text[i]
-            count +=n
+            count += n
         
         my_list.append("".join(current_list))
     
@@ -665,10 +665,21 @@ def encryption():
 
 @app.route('/bankbranch', methods = ["POST"])
 def bank():
-    number = random.randint(1,50)
-    mine = {}
-    mine['answer'] = number
-    return jsonify(mine)
+    test = request.json
+    print(test)
+    n = test['N']
+    start_time = test['branch_officers_timings']
+    current_time = start_time
+    output = {}
+
+    for i in range(n):
+        branch_go = current_time.index(min(current_time))
+        for j in range(len(current_time)):
+            current_time[j] -= start_time[branch_go]
+        current_time[branch_go] = start_time[branch_go]
+
+    output["answer"] = branch_go + 1
+    return jsonify(output)
 
 @app.route('/maximise_1a', methods = ["POST"])
 def max_1a():
