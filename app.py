@@ -462,7 +462,7 @@ def typing_contest():
 
 @app.route('/bucket-fill', methods = ["POST"])
 def bucketfill():
-    test = request
+    test = request.data
     print("hello")
     print(test)
     print("hihi")
