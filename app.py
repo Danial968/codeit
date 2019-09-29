@@ -681,7 +681,6 @@ def bank():
                 if current_time[j] < 0:
                     current_time[j] = 0
         current_time[branch_go] = start_time[branch_go]
-
     output["answer"] = branch_go + 1
     return jsonify(output)
 
