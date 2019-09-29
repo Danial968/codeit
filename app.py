@@ -635,6 +635,7 @@ def yin-yang():
 @app.route('/encryption', methods = ["POST"])
 def encryption():
     tests = request.json
+    print(tests)
     my_list = []
     for test in tests:
         n = test["n"]
