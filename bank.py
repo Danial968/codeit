@@ -1,21 +1,31 @@
 def bank(test):
 
-    counter = 0
-    timing = 0
-    bank = test['branch_officers_timings']
-    my_dict = {}
-    
-    
+    n = test['N']
+    start_time = test['branch_officers_timings']
+    current_time = start_time
 
-    for i in range(len(bank)):
-        if i + 1 not in my_dict:
-            my_dict[i+1] = [bank[i],1]
-            counter += 1
+    for i in range(n):
+        branch_go = current_time.index(min(current_time))
+        for j in range(len(current_time)):
+            current_time[j] -= start_time[branch_go]
+        current_time[branch_go] = start_time[branch_go]
 
-    
-
-    print(my_dict)
+    return branch_go+1
 
 
-
-bank({"N":6,"branch_officers_timings":[2,3]})
+test = {
+  "N": 800000002,
+  "branch_officers_timings": [
+    2,
+    100000,
+    100000,
+    100000,
+    100000,
+    100000,
+    100000,
+    100000,
+    100000,
+    3
+  ]
+}
+print(bank(test))

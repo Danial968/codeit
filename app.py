@@ -665,10 +665,21 @@ def encryption():
 
 @app.route('/bankbranch', methods = ["POST"])
 def bank():
-    number = random.randint(1,50)
-    mine = {}
-    mine['answer'] = number
-    return jsonify(mine)
+    tests = request.json
+    print(tests)
+    n = test['N']
+    start_time = test['branch_officers_timings']
+    current_time = start_time
+    output = {}
+
+    for i in range(n):
+        branch_go = current_time.index(min(current_time))
+        for j in range(len(current_time)):
+            current_time[j] -= start_time[branch_go]
+        current_time[branch_go] = start_time[branch_go]
+
+    output["answer"] = branch_go + 1
+    return jsonify(output)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
