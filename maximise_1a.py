@@ -19,7 +19,7 @@ def maximise_1a(test):
 
         read = stock[count][2]
 
-        while(tempCapital != 0 and stock[count][2] <= tempCapital):
+        while(tempCapital != 0 and stock[count][2] <= tempCapital and stock[count][0] not in tempfolio['portfolio']):
             tempCapital -= stock[count][2]
             
             tempfolio['profit'] += stock[count][1]

@@ -682,7 +682,7 @@ def bank():
     return jsonify(output)
 
 @app.route('/maximise_1a', methods = ["POST"])
-def max_1a():
+def danial():
     test = request.json
     print(test)
     startingCapital = test["startingCapital"]
@@ -702,7 +702,7 @@ def max_1a():
 
         read = stock[count][2]
 
-        while(tempCapital != 0 and stock[count][2] <= tempCapital):
+        while(tempCapital != 0 and stock[count][2] <= tempCapital and stock[count][0] not in tempfolio['portfolio']):
             tempCapital -= stock[count][2]
             
             tempfolio['profit'] += stock[count][1]
