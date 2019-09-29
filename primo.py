@@ -88,24 +88,8 @@ def primo(test):
                     current[to_move[0]][to_move[1]][to_move[2]], current[current_index[0]][current_index[1]][current_index[2]] = current[current_index[0]][current_index[1]][current_index[2]], current[to_move[0]][to_move[1]][to_move[2]]
     return moves
 test = {
-  "initial": [[[ 1, 2, 3],
-               [ 4, 0, 6],
-               [ 7, 8, 9]],
-              [[10,11,12],
-               [13, 5,14],
-               [16,17,15]],
-              [[19,20,21],
-               [22,23,24],
-               [25,26,18]]],
-  "goal": [[[ 1, 2, 3],
-            [ 4, 5, 6],
-            [ 7, 8, 9]],
-           [[10,11,12],
-            [13,14,15],
-            [16,17,18]],
-           [[19,20,21],
-            [22,23,24],
-            [25,26,0]]]
+  "initial": [[2, 5, 7, 3], [9, 1, 14, 4], [10, 11, 15, 8], [6, 13, 0, 12]],
+  "goal": [[2, 6, 5, 7], [1, 8, 3, 4], [13, 9, 14, 11], [0, 15, 12, 10]]
 }
 
 print(primo(test))
