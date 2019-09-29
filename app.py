@@ -607,7 +607,7 @@ def defuse():
     return jsonify(my_list)
 
 @app.route('/yin-yang', methods = ["POST"])
-def yinyang():
+def yin-yang():
     test = request.json
     print(test)
     number_of_elements = test["number_of_elements"]
@@ -631,6 +631,36 @@ def yinyang():
             #     elements_list.append([])
     output["result"] = probability
     return jsonify(output)
+
+@app.route('/encryption', methods = ["POST"])
+def encryption():
+    tests = request.json
+    my_list = []
+    for test in tests:
+        n = test["n"]
+        text = test["text"]
+        new_text = ""
+        for i in range(len(text)):
+            if text[i].isalpha():
+                new_text += text[i].upper()
+        if len(new_text) < n:
+            my_list.append(new_text)
+            break
+
+        current_list = ['']*len(new_text)
+        count = 0
+        rounds = 1
+
+        for i in range(len(new_text)):
+            current_list[count] = new_text[i]
+            count += n
+            if count > len(new_text):
+                count = rounds
+                rounds += 1
+        
+        my_list.append("".join(current_list))
+    
+    return jsonify(my_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))

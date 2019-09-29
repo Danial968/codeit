@@ -25,4 +25,5 @@ test = {
     "elements" :  "yYY"
 }
 
-print(yinyang(test))
+test1 = {'number_of_elements': 7, 'number_of_operations': 4, 'elements': 'YYYyYyY'}
+print(yinyang(test1))
