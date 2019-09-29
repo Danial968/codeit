@@ -607,7 +607,7 @@ def defuse():
     return jsonify(my_list)
 
 @app.route('/yin-yang', methods = ["POST"])
-def yin-yang():
+def yinyang():
     test = request.json
     print(test)
     number_of_elements = test["number_of_elements"]
