@@ -322,7 +322,7 @@ def guncontrol():
             if grid[y][x] == "X":
                 gridVisit[y][x] = "B"
 
-    def moveEnd(currentPoint,grid,gridVisit,endpointNfuel,fuel):
+    def moveEnd(currentPoint,grid,gridVisit,endpointNfuel,fuel,maxfuel):
         fuel += 1
         movetop = False
         moveleft= False
@@ -360,19 +360,20 @@ def guncontrol():
         except:
             pass
         if movetop:
-            moveEnd((y-1,x),grid,gridVisit,endpointNfuel,fuel)
+            moveEnd((y-1,x),grid,gridVisit,endpointNfuel,fuel,maxfuel)
         if moveright:
-            moveEnd((y,x+1),grid,gridVisit,endpointNfuel,fuel)
+            moveEnd((y,x+1),grid,gridVisit,endpointNfuel,fuel,maxfuel)
         if movebot:
-            moveEnd((y+1,x),grid,gridVisit,endpointNfuel,fuel)
+            moveEnd((y+1,x),grid,gridVisit,endpointNfuel,fuel,maxfuel)
         if moveleft:
-            moveEnd((y,x-1),grid,gridVisit,endpointNfuel,fuel)
+            moveEnd((y,x-1),grid,gridVisit,endpointNfuel,fuel,maxfuel)
 
         if (not movetop) and (not moveright) and (not movebot) and (not moveleft):
             # add to endpoint
-            endpointNfuel += [((y,x),fuel)]
+            if fuel <= maxfuel:
+                endpointNfuel += [((y,x),fuel)]
 
-    moveEnd((0,0),grid,gridVisit,endpointNfuel,0)
+    moveEnd((0,0),grid,gridVisit,endpointNfuel,0,fuel)
     # for i in range(len(endpointNfuel)):
     #     nextFinal = [endpointNfuel[i]]
     #     for j in range(len(endpointNfuel)):
@@ -385,11 +386,45 @@ def guncontrol():
     #                 nextFinal += [endpointNfuel[j]]
     #     if len(nextFinal) > len(final):
     #         final = nextFinal
+    # for i in range(len(endpointNfuel)):
+    #     perms = itertools.permutations(endpointNfuel,i)
+    #     for setlist in list(perms):
+    #         if sum(map(lambda x: x[1], setlist)) == fuel:
+    #             final = setlist
+    
+    nextbest = 0
     for i in range(len(endpointNfuel)):
-        perms = itertools.permutations(endpointNfuel,i)
-        for setlist in list(perms):
-            if sum(map(lambda x: x[1], setlist)) == fuel:
-                final = setlist
+        nextFinal = [endpointNfuel[i]]
+        for j in range(len(endpointNfuel)):
+            if i != j:
+                add = nextFinal + [endpointNfuel[j]]
+                fueltotal = 0
+                for it in add:
+                    fueltotal += it[1]
+                if fueltotal == fuel:
+                    hits = []
+                    for item in nextFinal:
+                        hits.append(
+                            {
+                                "cell": {
+                                    "x": (item[0][1] + 1),
+                                    "y": (item[0][0] + 1)
+                                },
+                                "guns": item[1]
+                            }
+                        )
+                    output = {"hits": hits}
+                    return jsonify(output)
+                if fueltotal <= fuel and fueltotal > nextbest:
+                    nextFinal += [endpointNfuel[j]]
+                    nextbest += endpointNfuel[j][1]
+                elif fueltotal > fuel:
+                    break
+        if sum(map(lambda x:x[1], final)) < nextbest:
+            final =  nextFinal
+
+
+
 
     hits = []
     for item in final:
