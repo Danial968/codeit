@@ -663,5 +663,12 @@ def encryption():
     
     return jsonify(my_list)
 
+@app.route('/bankbranch', methods = ["POST"])
+def bank():
+    number = random.randint(1,50)
+    mine = {}
+    mine['answer'] = number
+    return jsonify(mine)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))

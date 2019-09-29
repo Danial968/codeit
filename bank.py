@@ -11,8 +11,6 @@ def bank(test):
         if i + 1 not in my_dict:
             my_dict[i+1] = [bank[i],1]
             counter += 1
-    
-    # for key, value in my_dict:
 
     
 
