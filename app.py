@@ -670,5 +670,50 @@ def bank():
     mine['answer'] = number
     return jsonify(mine)
 
+@app.route('/maximise_1a', methods = ["POST"])
+def max_1a():
+    test = request.json
+    startingCapital = test["startingCapital"]
+    stocks = test["stocks"]
+    output = {}
+    best_stock = []
+    profit = 0
+    portfolio = []
+
+    for stock in itertools.permutations(stocks):
+        tempCapital = startingCapital
+        count = 0
+        tempfolio = {}
+        tempfolio['profit'] = 0
+        tempfolio['portfolio'] = []
+
+
+        read = stock[count][2]
+
+        while(tempCapital != 0 and stock[count][2] <= tempCapital):
+            tempCapital -= stock[count][2]
+            
+            tempfolio['profit'] += stock[count][1]
+            tempfolio['portfolio'].append(stock[count][0])
+            count +=1
+            if count > len(stock):
+                count = 0
+
+        if tempCapital < 0:
+            tempfolio['portfolio'].pop()
+            tempfolio['profit'] -= stock[count][1]
+
+        portfolio.append(tempfolio)
+    # print(type(portfolio))
+    # print(pd.DataFrame(portfolio))
+
+    highest = 0
+
+    for my_dict in portfolio:
+        if my_dict['profit'] > highest:
+            highest = my_dict['profit']
+            answer = my_dict
+
+    return jsonify(answer)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
