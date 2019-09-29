@@ -646,7 +646,7 @@ def encryption():
                 new_text += text[i].upper()
         if len(new_text) < n:
             my_list.append(new_text)
-            break
+            continue
 
         current_list = ['']*len(new_text)
         count = 0
@@ -657,7 +657,7 @@ def encryption():
                 count = rounds
                 rounds += 1
             current_list[count] = new_text[i]
-            count +=n
+            count += n
         
         my_list.append("".join(current_list))
     
