@@ -37,13 +37,13 @@ def maximise_1a(test):
     # print(pd.DataFrame(portfolio))
 
     highest = 0
+    my_dict = max(portfolio, key=lambda x:x['profit'])
+    # for my_dict in portfolio:
+    #     if my_dict['profit'] > highest:
+    #         highest = my_dict['profit']
+    #         answer = my_dict
 
-    for my_dict in portfolio:
-        if my_dict['profit'] > highest:
-            highest = my_dict['profit']
-            answer = my_dict
-
-    print(answer)
+    print(my_dict)
 json = {
         "startingCapital": 400,
         "stocks": [

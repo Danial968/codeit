@@ -755,16 +755,8 @@ def danial():
             tempfolio['profit'] -= stock[count][1]
 
         portfolio.append(tempfolio)
-    # print(type(portfolio))
-    # print(pd.DataFrame(portfolio))
 
-    highest = 0
-
-    for my_dict in portfolio:
-        if my_dict['profit'] > highest:
-            highest = my_dict['profit']
-            answer = my_dict
-    print(answer)
-    return jsonify(answer)
+    my_dict = max(portfolio, key=lambda x:x['profit'])
+    return jsonify(my_dict)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
