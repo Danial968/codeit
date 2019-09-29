@@ -303,7 +303,7 @@ def exponential():
 @app.route('/gun-control', methods = ["POST"])
 def guncontrol():
     test = request.json
-    print(test)
+    #print(test)
     unprocess = test['grid']
     fuel = test['fuel']
     endpointNfuel = []
@@ -392,8 +392,9 @@ def guncontrol():
     #         if sum(map(lambda x: x[1], setlist)) == fuel:
     #             final = setlist
     
-    nextbest = 0
+    
     for i in range(len(endpointNfuel)):
+        nextbest = 0
         nextFinal = [endpointNfuel[i]]
         for j in range(len(endpointNfuel)):
             if i != j:
@@ -414,10 +415,11 @@ def guncontrol():
                             }
                         )
                     output = {"hits": hits}
+                    #print(fuel,sum(map(lambda x:x[1], nextFinal)))
                     return jsonify(output)
                 if fueltotal <= fuel and fueltotal > nextbest:
                     nextFinal += [endpointNfuel[j]]
-                    nextbest += endpointNfuel[j][1]
+                    nextbest = fueltotal
                 elif fueltotal > fuel:
                     break
         if sum(map(lambda x:x[1], final)) < nextbest:
@@ -438,6 +440,8 @@ def guncontrol():
             }
         )
     output = {"hits": hits}
+    #print(fuel,sum(map(lambda x:x[1], final)))
+    #return output
     return jsonify(output)
 
 @app.route('/typing-contest', methods = ["POST"])
