@@ -665,8 +665,8 @@ def encryption():
 
 @app.route('/bankbranch', methods = ["POST"])
 def bank():
-    tests = request.json
-    print(tests)
+    test = request.json
+    print(test)
     n = test['N']
     start_time = test['branch_officers_timings']
     current_time = start_time
