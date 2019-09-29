@@ -9,6 +9,7 @@ def primo(test):
     initial = test["initial"]
     goal = test["goal"]
     print(initial)
+    print(goal)
     current = initial
     moves = []
 
