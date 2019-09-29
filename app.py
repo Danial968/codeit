@@ -670,13 +670,15 @@ def bank():
     print(test)
     n = test['N']
     start_time = test['branch_officers_timings']
-    current_time = start_time
-    output = {}
+    current_time = start_time[:]
 
-    for i in range(n):
+    for i in range(len(current_time), n):
         branch_go = current_time.index(min(current_time))
         for j in range(len(current_time)):
-            current_time[j] -= start_time[branch_go]
+            if current_time[j] > 0:
+                current_time[j] -= current_time[branch_go]
+                if current_time[j] < 0:
+                    current_time[j] = 0
         current_time[branch_go] = start_time[branch_go]
 
     output["answer"] = branch_go + 1
