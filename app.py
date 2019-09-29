@@ -642,7 +642,7 @@ def encryption():
         text = test["text"]
         new_text = ""
         for i in range(len(text)):
-            if text[i].isalpha():
+            if text[i].isalnum():
                 new_text += text[i].upper()
         if len(new_text) < n:
             my_list.append(new_text)
@@ -653,11 +653,11 @@ def encryption():
         rounds = 1
 
         for i in range(len(new_text)):
-            current_list[count] = new_text[i]
-            count += n
-            if count > len(new_text):
+            if count >= len(new_text):
                 count = rounds
                 rounds += 1
+            current_list[count] = new_text[i]
+            count += n
         
         my_list.append("".join(current_list))
     
