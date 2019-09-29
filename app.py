@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 import random
 import math
 from svgpathtools import svg2paths
+import itertools 
 
 app = Flask(__name__)
 @app.after_request
