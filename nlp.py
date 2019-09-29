@@ -1,78 +1,79 @@
-# import nltk
-# nltk.download('vader_lexicon')
-# from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import nltk
+nltk.download('vader_lexicon')
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 # import torch
 # import flair
 # flair_sentiment = flair.models.TextClassifier.load('en-sentiment')
-import nltk
+# import nltk
 nltk.download('stopwords')
-nltk.download('movie_reviews')
-nltk.download('punkt')
-import nltk.classify.util
-from nltk.classify import NaiveBayesClassifier
-from nltk.corpus import movie_reviews
+# nltk.download('movie_reviews')
+# nltk.download('punkt')
+# import nltk.classify.util
+# from nltk.classify import NaiveBayesClassifier
+# from nltk.corpus import movie_reviews
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
 def create_word_features(words):
     useful_words = [word for word in words if word not in stopwords.words("english")]
-    my_dict = dict([(word, True) for word in useful_words])
-    return my_dict
+    # my_dict = dict([(word, True) for word in useful_words])
+    # return my_dict
+    return useful_words
 
-def write_to_file(filename,result):
-    with open(filename,'w+') as f:
-        for line in result:
-            f.write(line + '\n')
+# def write_to_file(filename,result):
+#     with open(filename,'w+') as f:
+#         for line in result:
+#             f.write(line + '\n')
 
 def sentiment(sentences):
 
-    response = []
-
-    neg_reviews = []
-
-    for fileid in movie_reviews.fileids('neg'):
-        words = movie_reviews.words(fileid)
-        neg_reviews.append((create_word_features(words), "negative"))
-        write_to_file('negative',create_word_features(words))
-
-    pos_reviews = []
-    for fileid in movie_reviews.fileids('pos'):
-        words = movie_reviews.words(fileid)
-        pos_reviews.append((create_word_features(words), "positive"))
-    
-    train_set = neg_reviews[:750] + pos_reviews[:750]
-    test_set =  neg_reviews[750:] + pos_reviews[750:]
-
-    classifier = NaiveBayesClassifier.train(train_set)
-
-    accuracy = nltk.classify.util.accuracy(classifier, test_set)
-
-    for sentence in sentences:
-        words = word_tokenize(sentence)
-        words = create_word_features(words)
-        classifier.classify(words)
-        if classifier.classify(words) == "positive":
-            response.append("positive")
-        else:
-            response.append("negative")
-
     # response = []
 
+    # neg_reviews = []
+
+    # for fileid in movie_reviews.fileids('neg'):
+    #     words = movie_reviews.words(fileid)
+    #     neg_reviews.append((create_word_features(words), "negative"))
+    #     write_to_file('negative',create_word_features(words))
+
+    # pos_reviews = []
+    # for fileid in movie_reviews.fileids('pos'):
+    #     words = movie_reviews.words(fileid)
+    #     pos_reviews.append((create_word_features(words), "positive"))
+    
+    # train_set = neg_reviews[:750] + pos_reviews[:750]
+    # test_set =  neg_reviews[750:] + pos_reviews[750:]
+
+    # classifier = NaiveBayesClassifier.train(train_set)
+
+    # accuracy = nltk.classify.util.accuracy(classifier, test_set)
+
     # for sentence in sentences:
+    #     words = word_tokenize(sentence)
+    #     words = create_word_features(words)
+    #     classifier.classify(words)
+    #     if classifier.classify(words) == "positive":
+    #         response.append("positive")
+    #     else:
+    #         response.append("negative")
+
+    response = []
+
+    for sentence in sentences:
         # flair_sentiment = flair.models.TextClassifier.load('en-sentiment')
         # s = flair.data.Sentence(sentence)
         # flair_sentiment.predict(s)
         # total_sentiment = s.labels
         # total_sentiment
-        # sid = SentimentIntensityAnalyzer()
-        # sentence_split = sentence.split(".")
-        # print(sid.polarity_scores(sentence))
-        # for s in sentence_split:
-        #     print(sid.polarity_scores(s))
-            # if sid.polarity_scores(s)["neg"] < sid.polarity_scores(sentence)["pos"]:
-            #     response.append("positive")
-            # else:
-            #     response.append("negative")
+        words = word_tokenize(sentence)
+        words = create_word_features(words)
+        new_sentence = " ".join(words)
+        sid = SentimentIntensityAnalyzer()
+        print(sid.polarity_scores(sentence))
+        if sid.polarity_scores(sentence)["neg"] < sid.polarity_scores(sentence)["pos"]:
+            response.append("positive")
+        else:
+            response.append("negative")
     
     return ""
 

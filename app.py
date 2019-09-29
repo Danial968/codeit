@@ -518,6 +518,7 @@ def prismo():
             return 0
     test = request.json
     initial = test["initial"]
+    print(initial)
     goal = test["goal"]
     current = initial
     moves = []

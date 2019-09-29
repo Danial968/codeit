@@ -9,6 +9,7 @@ def primo(test):
     initial = test["initial"]
     goal = test["goal"]
     print(initial)
+    print(goal)
     current = initial
     moves = []
 
@@ -84,7 +85,7 @@ def primo(test):
                     current[to_move[0]][to_move[1]][to_move[2]], current[current_index[0]][current_index[1]][current_index[2]] = current[current_index[0]][current_index[1]][current_index[2]], current[to_move[0]][to_move[1]][to_move[2]]
                 else:
                     moves.append("U")
-                    current[to_move[0]][to_move[1]][to_move[2]], current[current_index[0]][current_index[1]][current_index[2]] = current[current_index[0]][current_index[1]][current_index[2]], current[to_move[0]][to_move[1]][to_move[2]]    
+                    current[to_move[0]][to_move[1]][to_move[2]], current[current_index[0]][current_index[1]][current_index[2]] = current[current_index[0]][current_index[1]][current_index[2]], current[to_move[0]][to_move[1]][to_move[2]]
     return moves
 test = {
   "initial": [[[ 1, 2, 3],
