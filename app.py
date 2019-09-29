@@ -723,7 +723,7 @@ def bank():
 @app.route('/maximise_1a', methods = ["POST"])
 def danial():
     test = request.json
-    print(test)
+    # print(test)
     startingCapital = test["startingCapital"]
     stocks = test["stocks"]
     output = {}
