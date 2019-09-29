@@ -668,6 +668,7 @@ def encryption():
 def bank():
     test = request.json
     print(test)
+    output = {}
     n = test['N']
     start_time = test['branch_officers_timings']
     current_time = start_time[:]
